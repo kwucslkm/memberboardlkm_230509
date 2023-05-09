@@ -4,18 +4,21 @@
 }
 
 #header {
-    background-color: #3157d2;
+    background-color: darkslategrey;
+    color: white;
     text-align: center;
     padding: 20px;
 }
 
 #nav {
-    background-color: #8c89e7;
+    background-color: darkolivegreen;
+    color: white;
 }
 
 #section {
     background-color: #e4e4e4;
     padding: 20px;
+    text-align: center;
 }
 
 #section h2 {
@@ -27,8 +30,9 @@
 }
 
 #footer {
-    background-color: #3157d2;
+    background-color: black;
     text-align: center;
+    color: yellow;
     padding: 20px;
 }
 

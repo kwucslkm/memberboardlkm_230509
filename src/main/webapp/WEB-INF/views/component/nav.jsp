@@ -9,13 +9,13 @@
             </a>
         </li>
         <li>
-            <a href="/board/save">글작성</a>
+            <a href="/save_member">회원가입</a>
         </li>
         <li>
-            <a href="/board/">글목록</a>
+            <a href="/board/">로그인</a>
         </li>
         <li>
-            <a href="/board/paging">페이징목록</a>
+            <a href="/board/paging">목록</a>
         </li>
         <li class="login-name" id="login-area">
 

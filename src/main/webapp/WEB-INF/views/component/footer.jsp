@@ -7,5 +7,5 @@
     console.log(date);
     console.log(date.getFullYear());
     const footer = document.getElementById("footer");
-    footer.innerHTML = "<p>&copy; " + date.getFullYear() + "&nbsp; HRDKOREA  All rights reserved. </p>";
+    footer.innerHTML = "<p>&copy; " + date.getFullYear() + "&nbsp; ICIA  All rights reserved. </p>";
 </script>
