@@ -17,6 +17,12 @@
         select * from mb_member where memberEmail = #{memberEmail}
 
     </select>
+    <select id="memberLogin" parameterType="member" resultType="member">
+        select * from mb_member where memberEmail = #{memberEmail} and memberPassword = #{memberPassword}
+    </select>
+    <select id="findFile" parameterType="Long" resultType="memberfile">
+        select * from mb_profileFile_table where memberId=#{memberId}
+    </select>
 </mapper>
 
 

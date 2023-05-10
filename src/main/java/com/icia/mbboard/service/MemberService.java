@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -56,16 +57,26 @@ public class MemberService {
                 memberRepository.saveprofileFile(memberProfileFileDTO);
             }
         }
-
-
-
-        return ;
+    }
+    public MemberDTO findByMemberEmail(String memberEmail) {
+//        System.out.println("컨트롤러에서 받은거야 = " + memberEmail);
+        MemberDTO memberDTO =memberRepository.findByMemberEmail(memberEmail);
+//        System.out.println("레파지에서 받아온거야 = " + memberDTO);
+       return memberDTO;
     }
 
-    public MemberDTO findByMemberEmail(String memberEmail) {
-        System.out.println("컨트롤러에서 받은거야 = " + memberEmail);
-        MemberDTO memberDTO =memberRepository.findByMemberEmail(memberEmail);
-        System.out.println("레파지에서 받아온거야 = " + memberDTO);
-       return memberDTO;
+    public boolean memberLogin(MemberDTO memberDTO) {
+        MemberDTO dto = memberRepository.memberLogin(memberDTO);
+        if (dto!=null){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    public List<MemberProfileFileDTO> findFile(Long memberId) {
+        List<MemberProfileFileDTO> memberProfileFileDTOList = memberRepository.findFile(memberId);
+        return memberProfileFileDTOList;
+
     }
 }

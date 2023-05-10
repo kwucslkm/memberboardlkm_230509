@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="Mb_board">
+
+    <select id="boardFindAll" resultType="board">
+        select * from mb_board
+    </select>
+    <select id="boardFindbyId" resultType="board" parameterType="Long">
+        select * from mb_board select id = #{id}
+    </select>
+    <insert id="boardSave" parameterType="board" useGeneratedKeys="true" keyProperty="id">
+        insert into mb_board(memberId, boardWriter,boardTitle,boardContents, fileAttached)
+            values(#{memberId},#{boardWriter},#{boardTitle},#{boardContents},#{fileAttached})
+    </insert>
+
+    <insert id="boardFileSave" parameterType="boardfile">
+        insert into mb_boardFile_table(boardFileName, boardStoredFileName, boardId)
+        values (#{boardFileName}, #{boardStoredFileName}, #{boardId})
+    </insert>
+    <update id="boardCntHits" parameterType="Long" >
+        update mb_board set boardHits = boardHits+1 where id=#{id}
+    </update>
+    <select id="findBoardFile" resultType="boardfile" parameterType="Long">
+        select * from mb_boardFile_table where boardId = #{id}
+    </select>
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

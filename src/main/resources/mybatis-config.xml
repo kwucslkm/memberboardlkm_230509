@@ -5,6 +5,9 @@
     <typeAliases>
         <typeAlias type="com.icia.mbboard.dto.MemberDTO" alias="member"></typeAlias>
         <typeAlias type="com.icia.mbboard.dto.MemberProfileFileDTO" alias="memberfile"></typeAlias>
+        <typeAlias type="com.icia.mbboard.dto.BoardDTO" alias="board"></typeAlias>
+        <typeAlias type="com.icia.mbboard.dto.BoardFileDTO" alias="boardfile"></typeAlias>
+
 
     </typeAliases>
 </configuration>

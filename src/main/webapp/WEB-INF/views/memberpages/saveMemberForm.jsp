@@ -19,44 +19,56 @@
 <%@include file="../component/nav.jsp" %>
 
 <div id="section">
-    <form action="/saveMember" method="post" enctype="multipart/form-data">
-        <input type="text" name="memberEmail" placeholder="이메일" id="member-email" onblur="emailchk()"> <br>
-        <p id="check-result"></p>
-        <input type="text" name="memberPassword" placeholder="비밀번호"> <br>
-        <input type="text" name="memberName" placeholder="이름"> <br>
-        <input type="text" name="memberMobile" placeholder="전화번호"> <br>
-        <input type="file" name="memberProfileFile" multiple> <br>
-        <input type="submit" value="회원가입">
+    <h2>회원가입</h2><br>
+    <form action="/saveMember" method="post" id="memberSaveForm" enctype="multipart/form-data">
+        <input type="text" name="memberEmail" placeholder="이메일" class="memberSaveInput" id="member-email"
+               onblur="emailchk()">
+        <h6 id="check-result"></h6>
+        <input type="text" name="memberPassword" class="memberSaveInput" placeholder="비밀번호"> <br>
+        <input type="text" name="memberName" class="memberSaveInput" placeholder="이름"> <br>
+        <input type="text" name="memberMobile" class="memberSaveInput" placeholder="전화번호"> <br>
+        <input type="file" name="memberProfileFile" class="memberSaveInput" multiple> <br>
+        <input type="submit" class="memberSaveInput" value="회원가입" onclick="memberSaveResult()">
     </form>
 </div>
-
-
 
 
 <%@include file="../component/footer.jsp" %>
 </body>
 <script>
-const emailchk = () => {
-    const email = document.getElementById("member-email").value;
-    const emailChkResult = document.getElementById("check-result");
-    $.ajax({
-        type : "post",
-        url : "/email-chk",
-        data : {
-            "memberEmail" : email
-        },
-        success:function (){
-            emailChkResult.innerHTML = "멋진 이메일입니다.";
-            emailChkResult.style.color="green";
-        },
-        error : function (){
-            emailChkResult.innerHTML = "중복 이메일입니다.";
-            emailChkResult.style.color="red";
-        }
-    })
+    const emailchk = () => {
+        const email = document.getElementById("member-email").value;
+        const emailChkResult = document.getElementById("check-result");
 
+        $.ajax({
+            type: "post",
+            url: "/email-chk",
+            data: {
+                "memberEmail": email
+            },
+            success: function () {
 
+                emailChkResult.innerHTML = "멋진 이메일입니다.";
+                emailChkResult.style.color = "green";
+            },
+            error: function (err) {
+                //성공이 아닌경우 응답을 err로 받음.
+                //err내부의 status에는 서버에서 응답한 http status code 값이 담겨 있음.
+                //status code 값으로 화면에 출력하는 부분 제어
+                if (err.status == "409") {
+                    emailChkResult.innerHTML = "중복 이메일입니다.";
+                    emailChkResult.style.color = "red";
 
-}
+                } else if (err.status == "404") {
+                    emailChkResult.innerHTML = "필수 입력 입니다.";
+                    emailChkResult.style.color = "red";
+                }
+            }
+        })
+    }
+    const memberSaveResult = () => {
+        alert("회원가입 성공")
+
+    }
 </script>
 </html>
