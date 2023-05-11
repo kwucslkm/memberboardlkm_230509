@@ -33,7 +33,12 @@
         <c:forEach items="${boardList}" var="board">
             <tr>
                 <td>${board.id}</td>
-                <td><a href="/board?id=${board.id}">${board.boardTitle}</a></td>
+                <td><a href="/board?id=${board.id}">${board.boardTitle}</a>
+                    <c:if test="${board.fileAttached == 1}">
+                        @
+                    </c:if>
+
+                </td>
                 <td>${board.boardWriter}</td>
                 <td>${board.boardContents}</td>
                 <td>${board.boardCreatedDate}</td>

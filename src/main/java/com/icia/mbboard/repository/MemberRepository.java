@@ -45,4 +45,9 @@ public class MemberRepository {
         List<MemberProfileFileDTO> memberProfileFileDTOList = sql.selectList("Mb_member.findFile",memberId);
         return memberProfileFileDTOList;
     }
+
+    public MemberDTO findMemberById(Long memberId) {
+        MemberDTO memberDTO = sql.selectOne("Mb_member.findMemberById",memberId);
+        return memberDTO;
+    }
 }

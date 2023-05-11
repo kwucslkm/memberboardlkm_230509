@@ -79,4 +79,9 @@ public class MemberService {
         return memberProfileFileDTOList;
 
     }
+
+    public MemberDTO findMemberById(Long memberId) {
+        MemberDTO memberDTO= memberRepository.findMemberById(memberId);
+        return memberDTO;
+    }
 }

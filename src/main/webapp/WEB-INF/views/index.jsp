@@ -16,11 +16,11 @@
 <%@include file="./component/header.jsp" %>
 <%@include file="./component/nav.jsp" %>
 <div id="section">
-    <button onclick="save_member()">회원가입</button>
+    <button class="indexbtn" onclick="save_member()">회원가입</button>
     <br>
-    <button onclick="login_member()">로그인</button>
+    <button class="indexbtn" onclick="login_member()">로그인</button>
     <br>
-    <button onclick="board_list()">글목록</button>
+    <button class="indexbtn" onclick="board_list()">글목록</button>
 
 </div>
 
@@ -34,7 +34,7 @@
         location.href="/memberLogin";
     }
     const board_list = () => {
-        alert("로그인 후 이용 가능합니다.")
+        // alert("로그인 후 이용 가능합니다.")
         location.href = "/findAll";
 
     }

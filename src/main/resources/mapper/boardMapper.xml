@@ -9,23 +9,29 @@
         select * from mb_board
     </select>
     <select id="boardFindbyId" resultType="board" parameterType="Long">
-        select * from mb_board select id = #{id}
+        select * from mb_board where id = #{id}
     </select>
     <insert id="boardSave" parameterType="board" useGeneratedKeys="true" keyProperty="id">
         insert into mb_board(memberId, boardWriter,boardTitle,boardContents, fileAttached)
             values(#{memberId},#{boardWriter},#{boardTitle},#{boardContents},#{fileAttached})
     </insert>
 
-    <insert id="boardFileSave" parameterType="boardfile">
+    <insert id="boardFileSave" parameterType="boardFile">
         insert into mb_boardFile_table(boardFileName, boardStoredFileName, boardId)
         values (#{boardFileName}, #{boardStoredFileName}, #{boardId})
     </insert>
     <update id="boardCntHits" parameterType="Long" >
         update mb_board set boardHits = boardHits+1 where id=#{id}
     </update>
-    <select id="findBoardFile" resultType="boardfile" parameterType="Long">
+    <update id="boardUpdate" parameterType="board" >
+        update mb_board set boardTitle=#{boardTitle}, boardContents=#{boardContents} where id=#{id}
+    </update>
+    <select id="findBoardFile" resultType="boardFile" parameterType="Long">
         select * from mb_boardFile_table where boardId = #{id}
     </select>
+    <delete id="boardDel" parameterType="Long">
+        delete from mb_board where id=#{boardId}
+    </delete>
 
 
 </mapper>

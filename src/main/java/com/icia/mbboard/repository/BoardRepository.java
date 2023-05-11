@@ -40,7 +40,27 @@ public class BoardRepository {
     }
 
     public List<BoardFileDTO> findBoardFile(Long id) {
+        System.out.println("file 찾을 id = " + id);
         List<BoardFileDTO> boardFileDTOList = sql.selectList("Mb_board.findBoardFile", id);
         return boardFileDTOList;
+    }
+
+    public void boardUpdate(BoardDTO boardDTO) {
+        System.out.println("reposi까지왔어힘내"+boardDTO);
+        int updateresult = sql.update("Mb_board.boardUpdate",boardDTO);
+        if (updateresult==1){
+            System.out.println("업데이트성공");
+        }else{
+            System.out.println("업데이트 실패");
+        }
+
+    }
+
+    public void boardDel(Long boardId) {
+        System.out.println("boardId = " + boardId);
+        if(sql.delete("Mb_board.boardDel",boardId)==1)
+            System.out.println("삭제완료");
+        else
+            System.out.println("삭제실패");
     }
 }

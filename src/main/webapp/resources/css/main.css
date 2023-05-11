@@ -19,8 +19,8 @@
     border: 1px solid blue;
     padding: 20px;
     text-align: center;
-    width: 600px;
-    height: 600px;
+    /*width: 600px;*/
+    /*height: 600px;*/
 }
 #section h6{
     text-align: center;
@@ -33,20 +33,15 @@
 #memberSaveForm, #memberLoginForm {
     text-align: left;
     margin:  auto;
-    width:600px;
+    /*width:600px;*/
 
 }
 .memberSaveInput .memberLoginInput{
-    width: 500px;
+    /*width: 500px;*/
 }
-
-
 /*#section h2 {*/
 /*    text-align: center;*/
 /*}*/
-
-
-
 #footer {
     background-color: black;
     text-align: center;
@@ -72,17 +67,13 @@
 #nav ul li.login-name {
     float: right;
 }
-
-/*#section table {*/
-/*    margin: auto;*/
-/*    border: 1px solid black;*/
-/*}*/
-
-/*#section table tr,th,td {*/
-/*    padding: 5px;*/
-/*    border: 1px solid black;*/
-/*}*/
-
+#section .indexbtn {
+    width: 40%;
+    height: 20%;
+    background-color: #084298;
+    color: white;
+    font-size: 50px;
+}
 input {
     display: block;
     text-align: left;

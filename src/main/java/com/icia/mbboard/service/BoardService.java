@@ -16,7 +16,6 @@ public class BoardService {
     @Autowired
     private BoardRepository boardRepository;
     public List<BoardDTO> boardFindAll() {
-
         List<BoardDTO> boardDTOList = boardRepository.boardFindAll();
         return boardDTOList;
     }
@@ -28,15 +27,15 @@ public class BoardService {
             boardRepository.boardSave(boardDTO);
         }else{
             boardDTO.setFileAttached(1);
-            BoardDTO dto = boardRepository.boardSave(boardDTO);
+            BoardDTO dto = boardRepository.boardSave(boardDTO);// id값을 증가 시켜 가져온 dto 를 담는다.
             for(MultipartFile multipartFile : boardDTO.getBoardFile()){
-                String boarFileName = multipartFile.getOriginalFilename();
-                String storedFileName = System.currentTimeMillis()+"-"+boarFileName;
+                String boardFileName = multipartFile.getOriginalFilename();
+                String boardStoredFileName = System.currentTimeMillis()+"-"+boardFileName;
                 BoardFileDTO boardFileDTO = new BoardFileDTO();
-                boardFileDTO.setBoardFileName(boarFileName);
-                boardFileDTO.setBoardStoredFileName(storedFileName);
+                boardFileDTO.setBoardFileName(boardFileName);
+                boardFileDTO.setBoardStoredFileName(boardStoredFileName);
                 boardFileDTO.setBoardId(dto.getId());
-                String savePath = "D:\\springframework_img"+storedFileName;
+                String savePath = "D:\\springframework_img\\"+boardStoredFileName;
                 multipartFile.transferTo(new File(savePath));
                 boardRepository.boardSaveFile(boardFileDTO);
             }
@@ -53,5 +52,16 @@ public class BoardService {
     public List<BoardFileDTO> findBoardFile(Long id) {
         List<BoardFileDTO> boardFileDTOList = boardRepository.findBoardFile(id);
         return boardFileDTOList;
+    }
+
+    public void boardUpdate(BoardDTO boardDTO) {
+        System.out.println("컨트롤러에서 여기서비스로넘어온"+boardDTO);
+        boardRepository.boardUpdate(boardDTO);
+
+    }
+
+    public void boardDel(Long boardId) {
+        boardRepository.boardDel(boardId);
+
     }
 }
