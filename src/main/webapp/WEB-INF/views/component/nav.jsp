@@ -17,6 +17,9 @@
         <li id="navMenuList">
             <a href="/findAll">목록</a>
         </li>
+        <li id="navMenuPaging">
+            <a href="/pagingList">페이징목록</a>
+        </li>
         <li id="navMenus1">
 
         </li>

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class BoardRepository {
@@ -62,5 +63,26 @@ public class BoardRepository {
             System.out.println("삭제완료");
         else
             System.out.println("삭제실패");
+    }
+
+    public List<BoardDTO> pagingList(Map<String, Object> pagingParam) {
+//        pagingParam.put("start",pageStart);
+//        pagingParam.put("limit",pageLimit);
+        List<BoardDTO> boardDTOList = sql.selectList("Mb_board.pagingList",pagingParam);
+        System.out.println("boardDTOList = " + boardDTOList);
+        return boardDTOList;
+    }
+    public int boardCnt() {
+        int boardCnt = sql.selectOne("Mb_board.boardCnt");
+        return boardCnt;
+    }
+    public List<BoardDTO> searchList(Map<String, Object> pagingParams) {
+        System.out.println("pagingParams = " + pagingParams);
+        return sql.selectList("Mb_board.search", pagingParams);
+    }
+
+    public int boardSearchCount(Map<String, Object> pagingParams) {
+        return sql.selectOne("Mb_board.searchCount", pagingParams);
+
     }
 }

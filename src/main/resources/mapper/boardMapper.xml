@@ -4,9 +4,15 @@
 
 
 <mapper namespace="Mb_board">
-
+    <select id="boardCnt" resultType="Integer">
+        select count(id) from mb_board
+    </select>
     <select id="boardFindAll" resultType="board">
         select * from mb_board
+    </select>
+    <select id="pagingList" parameterType="java.util.HashMap" resultType="board">
+        select * from mb_board  order by id desc limit #{start},#{limit}
+
     </select>
     <select id="boardFindbyId" resultType="board" parameterType="Long">
         select * from mb_board where id = #{id}
@@ -32,6 +38,14 @@
     <delete id="boardDel" parameterType="Long">
         delete from mb_board where id=#{boardId}
     </delete>
+    <select id="search" parameterType="java.util.HashMap" resultType="board">
+        select * from mb_board where ${type} like concat('%', #{q}, '%')
+        order by id desc limit #{start}, #{limit}
+    </select>
+    <select id="searchCount" parameterType="java.util.HashMap" resultType="Integer">
+        select count(id) from mb_board where ${type} like concat('%', #{q}, '%')
+    </select>
+
 
 
 </mapper>

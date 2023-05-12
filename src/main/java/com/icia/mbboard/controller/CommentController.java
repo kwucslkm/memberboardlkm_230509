@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.List;
 
 @Controller
-public class commentController {
+public class CommentController {
     @Autowired
     private CommentService commentService;
     @PostMapping("/commentSave")
@@ -27,7 +27,4 @@ public class commentController {
 //        System.out.println("commentDTOList = " + commentDTOList);
         return new ResponseEntity<>(commentDTOList, HttpStatus.OK);
     }
-
-
-
 }

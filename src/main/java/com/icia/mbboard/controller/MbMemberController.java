@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.List;
 
 @Controller
-public class mbMemberController {
+public class MbMemberController {
     @Autowired
     private MemberService memberService;
 
@@ -34,6 +34,7 @@ public class mbMemberController {
 
     @GetMapping("/memberLogin")
     public String loginForm() {
+
         return "memberpages/memberlogin";
     }
 
@@ -44,7 +45,7 @@ public class mbMemberController {
             session.setAttribute("loginEmail", memberDTO.getMemberEmail());
             String loginEmailchk = (String)session.getAttribute("loginEmail");
 //            System.out.println("세션에 담긴 = " + loginEmailchk);
-            return "redirect:/findAll";
+            return "redirect:/pagingList";
         } else {
             return "index";
         }
