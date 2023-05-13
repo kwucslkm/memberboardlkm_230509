@@ -89,12 +89,14 @@
 /*    text-align: center;*/
 /*    margin: 0 auto;*/
 /*}*/
-#section .indexbtn {
+#section .index_btn {
     width: 30%;
-    height: 20%;
-    background-color: coral;
+    height: 6%;
+    background-color: #04414d ;
     color: white;
-    font-size: 50px;
+    font-size: 20px;
+    font-weight: bold;
+    /*margin-bottom: 0.2px;*/
 }
 input {
     display: block;

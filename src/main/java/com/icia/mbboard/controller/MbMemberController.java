@@ -49,9 +49,7 @@ public class MbMemberController {
         } else {
             return "index";
         }
-
     }
-
     @PostMapping("/email-chk")
     public ResponseEntity emailChk(@RequestParam String memberEmail) {
 //        System.out.println("회원가입에서ajax로 보냇어 = " + memberEmail);

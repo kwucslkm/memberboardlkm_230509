@@ -31,10 +31,24 @@ public class BoardController {
 //        System.out.println("list 가질러 간다.");
         List<BoardDTO> boardDTOList = boardService.boardFindAll();
         model.addAttribute("boardList", boardDTOList);
-
         return "boardpages/boardList";
     }
-
+    @GetMapping("/boardSave")
+    public String boardSave(HttpSession session, Model model) {
+        String loginEmailchk = (String) session.getAttribute("loginEmail");
+        MemberDTO memberDTO = memberService.findByMemberEmail(loginEmailchk);
+        model.addAttribute("member", memberDTO);
+        return "boardpages/boardSaveForm";
+    }
+    @PostMapping("/boardSave")
+    public String boardSaveFoem(@ModelAttribute BoardDTO boardDTO, HttpSession session) throws IOException {
+        String loginEmailchk = (String) session.getAttribute("loginEmail");
+        MemberDTO memberDTO = memberService.findByMemberEmail(loginEmailchk);
+        boardDTO.setMemberId(memberDTO.getId());
+        boardDTO.setBoardWriter(memberDTO.getMemberName());
+        boardService.boardSave(boardDTO);
+        return "redirect:/pagingList";
+    }
     @GetMapping("/pagingList")
     public String pagingList(@RequestParam(value = "page", required = false, defaultValue = "1") int page,
                              @RequestParam(value = "q", required = false, defaultValue = "") String q,
@@ -56,25 +70,6 @@ public class BoardController {
 
         return "boardpages/boardpagingList";
     }
-
-    @GetMapping("/boardSave")
-    public String boardSave(HttpSession session, Model model) {
-        String loginEmailchk = (String) session.getAttribute("loginEmail");
-        MemberDTO memberDTO = memberService.findByMemberEmail(loginEmailchk);
-        model.addAttribute("member", memberDTO);
-        return "boardpages/boardSaveForm";
-    }
-
-    @PostMapping("/boardSave")
-    public String boardSaveFoem(@ModelAttribute BoardDTO boardDTO, HttpSession session) throws IOException {
-        String loginEmailchk = (String) session.getAttribute("loginEmail");
-        MemberDTO memberDTO = memberService.findByMemberEmail(loginEmailchk);
-        boardDTO.setMemberId(memberDTO.getId());
-        boardDTO.setBoardWriter(memberDTO.getMemberName());
-        boardService.boardSave(boardDTO);
-        return "redirect:/findAll";
-    }
-
     @GetMapping("/board")
     public String findById(@RequestParam("id") Long id, Model model) {
 //        System.out.println("보드상세조회보드id = " + id);

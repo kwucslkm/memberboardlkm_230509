@@ -16,11 +16,13 @@
 <%@include file="./component/header.jsp" %>
 <%@include file="./component/nav.jsp" %>
 <div id="section">
-    <button class="indexbtn" onclick="save_member()">회원가입</button>
+    <button class="index_btn" onclick="save_member()">회원가입</button>
     <br>
-    <button class="indexbtn" onclick="login_member()">로그인</button>
     <br>
-    <button class="indexbtn" onclick="board_list()">글목록</button>
+    <button class="index_btn" onclick="login_member()">로그인</button>
+    <br>
+    <br>
+    <button class="index_btn" onclick="board_list()">글목록</button>
 
 </div>
 
@@ -35,7 +37,7 @@
     }
     const board_list = () => {
         // alert("로그인 후 이용 가능합니다.")
-        location.href = "/findAll";
+        location.href = "/pagingList";
 
     }
 </script>
