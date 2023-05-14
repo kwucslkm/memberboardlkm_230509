@@ -50,4 +50,9 @@ public class MemberRepository {
         MemberDTO memberDTO = sql.selectOne("Mb_member.findMemberById",memberId);
         return memberDTO;
     }
+
+    public List<MemberDTO> memberFindAll() {
+        List<MemberDTO> memberDTOList = sql.selectList("Mb_member.memberList");
+        return memberDTOList;
+    }
 }

@@ -17,6 +17,11 @@
         select * from mb_member where memberEmail = #{memberEmail}
 
     </select>
+    <select id="memberList"  resultType="member">
+        select * from mb_member
+
+    </select>
+
     <select id="findMemberById" parameterType="Long" resultType="member">
         select * from mb_member where id = #{memberId}
 

@@ -84,4 +84,9 @@ public class MemberService {
         MemberDTO memberDTO= memberRepository.findMemberById(memberId);
         return memberDTO;
     }
+
+    public List<MemberDTO> memberFindAll() {
+        List<MemberDTO> memberDTOList= memberRepository.memberFindAll();
+        return memberDTOList;
+    }
 }

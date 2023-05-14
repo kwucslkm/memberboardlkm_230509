@@ -33,6 +33,7 @@ public class BoardController {
         model.addAttribute("boardList", boardDTOList);
         return "boardpages/boardList";
     }
+
     @GetMapping("/boardSave")
     public String boardSave(HttpSession session, Model model) {
         String loginEmailchk = (String) session.getAttribute("loginEmail");
@@ -40,6 +41,7 @@ public class BoardController {
         model.addAttribute("member", memberDTO);
         return "boardpages/boardSaveForm";
     }
+
     @PostMapping("/boardSave")
     public String boardSaveFoem(@ModelAttribute BoardDTO boardDTO, HttpSession session) throws IOException {
         String loginEmailchk = (String) session.getAttribute("loginEmail");
@@ -49,27 +51,27 @@ public class BoardController {
         boardService.boardSave(boardDTO);
         return "redirect:/pagingList";
     }
+
     @GetMapping("/pagingList")
     public String pagingList(@RequestParam(value = "page", required = false, defaultValue = "1") int page,
                              @RequestParam(value = "q", required = false, defaultValue = "") String q,
                              @RequestParam(value = "type", required = false, defaultValue = "") String type,
                              Model model) {
-        List<BoardDTO> boardDTOList = null;
-        PageDTO pageDTO = null;
-        System.out.println("검색할type = " + type);
-        if (q.equals("")) {
-            boardDTOList = boardService.pagingList(page);
-            pageDTO = boardService.pagingParam(page);
-        }else {
-            System.out.println("검색하러간다 "+type);
-            boardDTOList = boardService.searchList(page, type, q);
-            pageDTO = boardService.pagingSearchParam(page, type, q);
-        }
+//        List<BoardDTO> boardDTOList = null;
+//        PageDTO pageDTO = null;
+        System.out.println("여기는컨트롤"+"page = " + page + ", q = " + q + ", type = " + type + ", model = " + model);
+        List<BoardDTO> boardDTOList = boardService.pagingList(page, type, q);
+        PageDTO pageDTO = boardService.pagingSearchParam(page, type, q);
+//        if (q.equals("")) {
+//            pageDTO = boardService.pagingParam(page);
+//        } else {
+//        }
         model.addAttribute("pagingList", boardDTOList);
         model.addAttribute("paging", pageDTO);
 
         return "boardpages/boardpagingList";
     }
+
     @GetMapping("/board")
     public String findById(@RequestParam("id") Long id, Model model) {
 //        System.out.println("보드상세조회보드id = " + id);

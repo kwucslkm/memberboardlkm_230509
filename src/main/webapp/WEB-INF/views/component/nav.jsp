@@ -33,14 +33,20 @@
     const loginArea = document.getElementById("login-area");
     const loginmenu1 = document.getElementById("navMenuSave");
     const loginmenu2 = document.getElementById("navMenulogin")
+    const navmenu1 = document.getElementById("navMenus1");
     const loginEmail = '${sessionScope.loginEmail}';
     console.log(loginEmail.length);
 
     if (loginEmail.length != 0) {
+
         loginArea.innerHTML = "<a href='/mypage' style='color: yellow;'>"+loginEmail +"마이페이지!</a>"+
                                 "<a href='/logout'>logout</a>";
+        if(loginEmail == 'admin'){
+            navmenu1.innerHTML = "<a href='/memberList'>회원목록</a>";
+        }
         loginmenu1.innerHTML = "<a href = '/boardSave'>게시글쓰기</a>";
         loginmenu2.innerHTML = "<a href = '/boardFindByEmail'>내글보러가기</a>";
+
     } else {
         loginArea.innerHTML = "<a href='/memberLogin'>login</a>";
     }

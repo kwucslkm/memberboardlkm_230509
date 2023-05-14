@@ -27,11 +27,17 @@ public class MbMemberController {
     @PostMapping("/saveMember")
     public String save(@ModelAttribute MemberDTO memberDTO) throws IOException {
         System.out.println("컨트롤러 보내기전 = " + memberDTO);
-        memberService.saveMember(memberDTO);
-        System.out.println("회원가입성공");
+        memberService.saveMember (memberDTO);
+          System.out.println("회원가입성공");
         return "memberpages/memberlogin";
     }
+@GetMapping("/memberList")
+public String memberFindAll(Model model){
+        List<MemberDTO> memberDTOList = memberService.memberFindAll();
 
+        model.addAttribute("memberList",memberDTOList);
+        return "memberpages/memberListAll";
+}
     @GetMapping("/memberLogin")
     public String loginForm() {
 
@@ -84,6 +90,13 @@ public class MbMemberController {
 //            System.out.println("memberProfileFileDTOList = " + memberProfileFileDTOList);
         }
         return "memberpages/memberDetail";
+    }
+    @GetMapping("/memberPage")
+    public String memberFindById(@RequestParam("id") Long id,Model model){
+        MemberDTO memberDTO = memberService.findMemberById(id);
+        model.addAttribute("member",memberDTO);
+        return "memberpages/memberDetail";
+
     }
 
 }

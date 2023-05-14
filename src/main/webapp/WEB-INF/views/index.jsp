@@ -26,6 +26,7 @@
 
 </div>
 
+
 <%@include file="./component/footer.jsp" %>
 </body>
 <script>
@@ -33,7 +34,7 @@
         location.href = "/save_member";
     }
     const login_member = () => {
-        location.href="/memberLogin";
+        location.href = "/memberLogin";
     }
     const board_list = () => {
         // alert("로그인 후 이용 가능합니다.")
