@@ -59,7 +59,7 @@ public class BoardController {
                              Model model) {
 //        List<BoardDTO> boardDTOList = null;
 //        PageDTO pageDTO = null;
-        System.out.println("여기는컨트롤"+"page = " + page + ", q = " + q + ", type = " + type + ", model = " + model);
+//        System.out.println("여기는컨트롤 "+"page = " + page + ", q = " + q + ", type = " + type + ", model = " + model);
         List<BoardDTO> boardDTOList = boardService.pagingList(page, type, q);
         PageDTO pageDTO = boardService.pagingSearchParam(page, type, q);
 //        if (q.equals("")) {

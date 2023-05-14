@@ -80,25 +80,43 @@ public class BoardService {
         pagingParam.put("type", type);
         return pagingParam;
     }
-
     public List<BoardDTO> pagingList(int page, String type, String q) {
-        System.out.println("servicelev page = " + page + ", type = " + type + ", q = " + q);
         Map<String, Object> pagingParam = pagingListmap(page, type, q);
-        System.out.println("pagingParam = " + pagingParam);
-        System.out.println(pagingParam.get(q));
-        if (pagingParam.get(q) == null) {
-            List<BoardDTO> boardDTOList = boardRepository.pagingList(pagingParam);
-            System.out.println("검색이 실행");
-            return boardDTOList;
+        List<BoardDTO> boardDTOList;
+        if (q.equals("")) {
+            boardDTOList = boardRepository.pagingList(pagingParam);
         } else {
-            List<BoardDTO> boardDTOList = boardRepository.searchList(pagingParam);
-            System.out.println("list");
-            return boardDTOList;
-
-        }
+            boardDTOList = boardRepository.searchList(pagingParam);
+        } return boardDTOList;
     }
 
-//    public List<BoardDTO> searchList(int page, String type, String q) {
+    public PageDTO pagingSearchParam(int page, String type, String q) {
+        int pageLimit = 5; // 한페이지에 보여줄 글 갯수
+        int blockLimit = 3; // 하단에 보여줄 페이지 번호 갯수
+        int boardCnt = 0;
+        if (q.equals("")) {
+            boardCnt = boardRepository.boardCnt();
+
+        } else {
+            Map<String, Object> pagingParams = new HashMap<>();
+            pagingParams.put("q", q);
+            pagingParams.put("type", type);
+            boardCnt = boardRepository.boardSearchCount(pagingParams);
+        }
+        int maxPage = (int) (Math.ceil((double) boardCnt / pageLimit));
+        int startPage = (((int) (Math.ceil((double) page / blockLimit))) - 1) * blockLimit + 1;
+        int endPage = startPage + blockLimit - 1;
+        if (endPage > maxPage) {
+            endPage = maxPage;
+        }
+        PageDTO pageDTO = new PageDTO();
+        pageDTO.setPage(page);
+        pageDTO.setMaxPage(maxPage);
+        pageDTO.setStartPage(startPage);
+        pageDTO.setEndPage(endPage);
+        return pageDTO;
+    }
+    //    public List<BoardDTO> searchList(int page, String type, String q) {
 //        Map<String, Object> pagingParams = pagingListmap(page);
 //        pagingParams.put("q", q);
 //        pagingParams.put("type", type);
@@ -124,32 +142,6 @@ public class BoardService {
 //        pageDTO.setEndPage(endPage);
 //        return pageDTO;
 //    }
-
-    public PageDTO pagingSearchParam(int page, String type, String q) {
-        int pageLimit = 5; // 한페이지에 보여줄 글 갯수
-        int blockLimit = 3; // 하단에 보여줄 페이지 번호 갯수
-        int boardCnt = 0;
-        if (q == ""){
-            Map<String, Object> pagingParams = new HashMap<>();
-            pagingParams.put("q", q);
-            pagingParams.put("type", type);
-            boardCnt = boardRepository.boardSearchCount(pagingParams);
-        }else {
-            boardCnt = boardRepository.boardCnt();
-        }
-        int maxPage = (int) (Math.ceil((double) boardCnt / pageLimit));
-        int startPage = (((int) (Math.ceil((double) page / blockLimit))) - 1) * blockLimit + 1;
-        int endPage = startPage + blockLimit - 1;
-        if (endPage > maxPage) {
-            endPage = maxPage;
-        }
-        PageDTO pageDTO = new PageDTO();
-        pageDTO.setPage(page);
-        pageDTO.setMaxPage(maxPage);
-        pageDTO.setStartPage(startPage);
-        pageDTO.setEndPage(endPage);
-        return pageDTO;
-    }
 //    public PageDTO pagingSearchParam(int page, String type, String q) {
 //        int pageLimit = 5; // 한페이지에 보여줄 글 갯수
 //        int blockLimit = 3; // 하단에 보여줄 페이지 번호 갯수

@@ -66,7 +66,7 @@ public class BoardRepository {
     }
 
     public List<BoardDTO> pagingList(Map<String, Object> pagingParam) {
-        System.out.println("no search");
+        System.out.println("R LEVEL get paging List");
         List<BoardDTO> boardDTOList = sql.selectList("Mb_board.pagingList",pagingParam);
         System.out.println("boardDTOList = " + boardDTOList);
         return boardDTOList;
@@ -76,7 +76,7 @@ public class BoardRepository {
         return boardCnt;
     }
     public List<BoardDTO> searchList(Map<String, Object> pagingParams) {
-        System.out.println("search");
+        System.out.println("q search list find");
         System.out.println("pagingParams = " + pagingParams);
         return sql.selectList("Mb_board.search", pagingParams);
     }

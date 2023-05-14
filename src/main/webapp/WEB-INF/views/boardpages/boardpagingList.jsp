@@ -21,12 +21,12 @@
 <div id="section">
     <div class="container" id="search-area">
         <form action="/pagingList" method="get">
-            <select name="type">
+            <select name="type" id="selectOpt">
                 <option value="boardTitle">제목</option>
                 <option value="boardWriter">작성자</option>
             </select>
-            <input type="text" name="q" placeholder="검색어를 입력하세요">
-            <input type="submit" value="검색">
+            <input type="text" id="searchValue" name="q" placeholder="검색어를 입력하세요">
+            <input type="submit" value="검색" onclick="searchValueSave()">
         </form>
     </div>
     <table>
@@ -117,6 +117,12 @@
 
 </body>
 <script>
-
+    // const searchValueSave = () => {
+    //     const selectOpt = document.getElementById("selectOpt");
+    //     const searchValue = document.getElementById("searchValue");
+    //     selectOpt.innerText = selectOpt.innerText;
+    //     searchValue.value = searchValue.value;
+    //
+    // }
 </script>
 </html>

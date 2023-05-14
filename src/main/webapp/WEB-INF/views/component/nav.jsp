@@ -39,7 +39,7 @@
 
     if (loginEmail.length != 0) {
 
-        loginArea.innerHTML = "<a href='/mypage' style='color: yellow;'>"+loginEmail +"마이페이지!</a>"+
+        loginArea.innerHTML = "<a href='/mypage' style='color: yellow;'>"+loginEmail +" 님 페이지!</a>"+
                                 "<a href='/logout'>logout</a>";
         if(loginEmail == 'admin'){
             navmenu1.innerHTML = "<a href='/memberList'>회원목록</a>";
