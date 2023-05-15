@@ -91,6 +91,11 @@
                         <td>
                             ${comment.commentCreatedDate}
                         </td>
+                        <td>
+                            <c:if test="${member.memberEmail == sessionScope.loginEmail}">
+                                <button id="commentDelBtn" class="commentDelbtn" onClick="commentDel()"></button>
+                            </c:if>
+                        </td>
                     </tr>
                     </c:forEach>
                 </table>
@@ -108,6 +113,7 @@
         const boardId = ${boardDetail.id};
         const result = document.getElementById("comment-list");
         const memberId = ${member.id};
+        const commentdel = document.getElementById("commentDelBtn");
         console.log(boardId);
         console.log(commentWriteName);
         console.log(commentContents);
@@ -137,8 +143,9 @@
                     output += "<td>" + res[i].commentWriter + "</td>";
                     output += "<td>" + res[i].commentContents + "</td>";
                     output += "<td>" + res[i].commentCreatedDate + "</td>";
+                    output += "<td>" + <c:if test="${member.memberEmail == sessionScope.loginEmail}"> <button id="commentDelBtn" onClick="commentDel()"></button></c:if> + "</td>";
+                    <%--<button id="memberDelBtn" style="display: none; width: 20px; height: 10px" onclick="memberDel(${member.id})"></button>--%>
                     // output += "<td>" + res[i].commentCreatedDate+"<"
-
                     // output += "<td>" + moment(res[i].commentCreatedDate).format("YYYY-MM-DD HH:mm:ss") + "</td>";
                     output += "</tr>";
                 }
@@ -155,6 +162,7 @@
         });
 
     }
+
     const board_update = (id) => {
         location.href = "/boardUpdate?id=" + id;
     }

@@ -24,7 +24,8 @@
         <input type="text" name="memberEmail" placeholder="이메일" class="memberSaveInput" id="member-email"
                onblur="emailchk()">
         <h6 id="check-result"></h6>
-        <input type="text" name="memberPassword" class="memberSaveInput" placeholder="비밀번호"> <br>
+        <input type="text" name="memberPassword" class="memberSaveInput" id="password" onblur="password_chk()" placeholder="비밀번호">
+        <h6 id="pwCheck-result"></h6>
         <input type="text" name="memberName" class="memberSaveInput" placeholder="이름"> <br>
         <input type="text" name="memberMobile" class="memberSaveInput" placeholder="전화번호"> <br>
         <input type="file" name="memberProfileFile" class="memberSaveInput" multiple> <br>
@@ -65,6 +66,21 @@
                 }
             }
         })
+    }
+    const password_chk = () => {
+        const passwordChk=document.getElementById("password");
+        const passwordChkResult = document.getElementById("pwCheck-result");
+        const exp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!#$])[A-Za-z\d!#$]{8,16}$/;
+        console.log("password chk go~~")
+        if(passwordChk.value.match(exp)){
+            passwordChkResult.innerHTML = "사용가능합니다.";
+            passwordChkResult.style.color="green";
+
+        }else {
+            passwordChkResult.innerHTML="올바른 형식이 아닙니다.(8~16자)영문대소문자,숫자,특수기호(!#$)필수"
+            passwordChkResult.style.color="red"
+            passwordChk.focus();
+        }
     }
     // const memberSaveResult = () => {
     //     alert("회원가입 성공")

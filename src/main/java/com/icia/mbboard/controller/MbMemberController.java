@@ -61,7 +61,7 @@ public class MbMemberController {
 
     @PostMapping("/email-chk")
     public ResponseEntity emailChk(@RequestParam String memberEmail) {
-//        System.out.println("회원가입에서ajax로 보냇어 = " + memberEmail);
+//        System.out.println("회원가입에서ajax로 보냇어 = " + memberEmail);`
         MemberDTO memberDTO = memberService.findByMemberEmail(memberEmail);
 //        System.out.println("디비에서 가져왔어 = " + memberDTO);
         if (memberEmail.length() == 0) {

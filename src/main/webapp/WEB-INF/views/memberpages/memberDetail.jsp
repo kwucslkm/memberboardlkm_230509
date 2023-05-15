@@ -65,8 +65,6 @@
         <button id="memberDelBtn" style="display: none; width: 20px; height: 10px" onclick="memberDel(${member.id})"></button>
     </div>
 </div>
-
-
 <%@include file="../component/footer.jsp" %>
 </body>
 <script>
@@ -85,7 +83,7 @@ if('${sessionScope.loginEmail}' == 'admin' ) {
     // memberDelLink.innerHTML = memberDElHtml;
     memberDelBtn.style.display = 'block';
     memberDelBtn.style.width = '100px';
-    memberDelBtn.style.height = '20px';
+    memberDelBtn.style.height = '30px';
     memberDelBtn.innerText='회원삭제';
 
 

@@ -19,6 +19,7 @@
 <%@include file="../component/header.jsp" %>
 <%@include file="../component/nav.jsp" %>
 <div id="section">
+    <h2>글목록</h2>
     <div class="container" id="search-area">
         <form action="/pagingList" method="get">
             <select name="type" id="selectOpt">
