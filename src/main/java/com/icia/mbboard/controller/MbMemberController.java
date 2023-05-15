@@ -27,17 +27,19 @@ public class MbMemberController {
     @PostMapping("/saveMember")
     public String save(@ModelAttribute MemberDTO memberDTO) throws IOException {
         System.out.println("컨트롤러 보내기전 = " + memberDTO);
-        memberService.saveMember (memberDTO);
-          System.out.println("회원가입성공");
+        memberService.saveMember(memberDTO);
+        System.out.println("회원가입성공");
         return "memberpages/memberlogin";
     }
-@GetMapping("/memberList")
-public String memberFindAll(Model model){
+
+    @GetMapping("/memberList")
+    public String memberFindAll(Model model) {
         List<MemberDTO> memberDTOList = memberService.memberFindAll();
 
-        model.addAttribute("memberList",memberDTOList);
+        model.addAttribute("memberList", memberDTOList);
         return "memberpages/memberListAll";
-}
+    }
+
     @GetMapping("/memberLogin")
     public String loginForm() {
 
@@ -49,13 +51,14 @@ public String memberFindAll(Model model){
         boolean loginResult = memberService.memberLogin(memberDTO);
         if (loginResult) {
             session.setAttribute("loginEmail", memberDTO.getMemberEmail());
-            String loginEmailchk = (String)session.getAttribute("loginEmail");
+            String loginEmailchk = (String) session.getAttribute("loginEmail");
 //            System.out.println("세션에 담긴 = " + loginEmailchk);
             return "redirect:/pagingList";
         } else {
             return "index";
         }
     }
+
     @PostMapping("/email-chk")
     public ResponseEntity emailChk(@RequestParam String memberEmail) {
 //        System.out.println("회원가입에서ajax로 보냇어 = " + memberEmail);
@@ -69,34 +72,50 @@ public String memberFindAll(Model model){
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
     }
+
     @GetMapping("/logout")
-    public String logout(HttpSession session){
+    public String logout(HttpSession session) {
         session.invalidate();
         return "index";
     }
+
     @GetMapping("/mypage")
-    public String mypage(HttpSession session, Model model){
+    public String mypage(HttpSession session, Model model) {
 //        System.out.println("ㅁㅏ이페이지 시작");
-        String loginEmailchk = (String)session.getAttribute("loginEmail");
+        String loginEmailchk = (String) session.getAttribute("loginEmail");
 //        System.out.println("세션에 담긴 = " + loginEmailchk);
         MemberDTO memberDTO = memberService.findByMemberEmail(loginEmailchk);
-        model.addAttribute("member",memberDTO);
+        model.addAttribute("member", memberDTO);
 //        System.out.println("해당 프로픨사진 여부"+memberDTO.getMemberProfile());
-        if(memberDTO.getMemberProfile()==1){
+        if (memberDTO.getMemberProfile() == 1) {
             Long memberId = memberDTO.getId();
 
             List<MemberProfileFileDTO> memberProfileFileDTOList = memberService.findFile(memberId);
-            model.addAttribute("memberPofile",memberProfileFileDTOList);
+            model.addAttribute("memberPofile", memberProfileFileDTOList);
 //            System.out.println("memberProfileFileDTOList = " + memberProfileFileDTOList);
         }
         return "memberpages/memberDetail";
     }
+
     @GetMapping("/memberPage")
-    public String memberFindById(@RequestParam("id") Long id,Model model){
+    public String memberFindById(@RequestParam("id") Long id, Model model) {
         MemberDTO memberDTO = memberService.findMemberById(id);
-        model.addAttribute("member",memberDTO);
+        model.addAttribute("member", memberDTO);
+        if (memberDTO.getMemberProfile() == 1) {
+            Long memberId = memberDTO.getId();
+            List<MemberProfileFileDTO> memberProfileFileDTOList = memberService.findFile(memberId);
+            model.addAttribute("memberPofile", memberProfileFileDTOList);
+//            System.out.println("memberProfileFileDTOList = " + memberProfileFileDTOList);
+        }
         return "memberpages/memberDetail";
 
+    }
+    @GetMapping("/memberDelete")
+    public String memberDelete(@RequestParam("id") Long memberId){
+        System.out.println("CTR시작memberId = " + memberId);
+        memberService.memberDelete(memberId);
+
+        return "redirect:/memberList";
     }
 
 }

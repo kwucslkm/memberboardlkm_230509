@@ -55,19 +55,16 @@ public class BoardController {
     @GetMapping("/pagingList")
     public String pagingList(@RequestParam(value = "page", required = false, defaultValue = "1") int page,
                              @RequestParam(value = "q", required = false, defaultValue = "") String q,
-                             @RequestParam(value = "type", required = false, defaultValue = "") String type,
+                             @RequestParam(value = "type", required = false, defaultValue = "boardTitle") String type,
                              Model model) {
-//        List<BoardDTO> boardDTOList = null;
-//        PageDTO pageDTO = null;
 //        System.out.println("여기는컨트롤 "+"page = " + page + ", q = " + q + ", type = " + type + ", model = " + model);
         List<BoardDTO> boardDTOList = boardService.pagingList(page, type, q);
         PageDTO pageDTO = boardService.pagingSearchParam(page, type, q);
-//        if (q.equals("")) {
-//            pageDTO = boardService.pagingParam(page);
-//        } else {
-//        }
+        System.out.println(pageDTO.getPage());
         model.addAttribute("pagingList", boardDTOList);
         model.addAttribute("paging", pageDTO);
+        model.addAttribute("q",q);
+        model.addAttribute("type",type);
 
         return "boardpages/boardpagingList";
     }
@@ -112,6 +109,5 @@ public class BoardController {
         boardService.boardDel(boardId);
         return "redirect:/findAll";
     }
-
 
 }

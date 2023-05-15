@@ -66,9 +66,9 @@
             }
         })
     }
-    const memberSaveResult = () => {
-        alert("회원가입 성공")
-
-    }
+    // const memberSaveResult = () => {
+    //     alert("회원가입 성공")
+    //
+    // }
 </script>
 </html>

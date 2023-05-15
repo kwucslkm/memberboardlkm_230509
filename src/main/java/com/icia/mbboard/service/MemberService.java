@@ -89,4 +89,9 @@ public class MemberService {
         List<MemberDTO> memberDTOList= memberRepository.memberFindAll();
         return memberDTOList;
     }
+
+    public void memberDelete(Long memberId) {
+        memberRepository.memberDelete(memberId);
+
+    }
 }

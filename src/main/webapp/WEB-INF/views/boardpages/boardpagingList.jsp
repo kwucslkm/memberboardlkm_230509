@@ -104,7 +104,6 @@
             <c:otherwise>
                 <li class="page-item">
                     <a class="page-link" href="/pagingList?page=${paging.page+1}&q=${q}&type=${type}">[다음]</a>
-<%--                <a class="page-link" href="/pagingList?page=${paging.page+1}&q=${q}&type=${type}">[다음]</a>--%>
                 </li>
             </c:otherwise>
         </c:choose>
@@ -117,12 +116,6 @@
 
 </body>
 <script>
-    // const searchValueSave = () => {
-    //     const selectOpt = document.getElementById("selectOpt");
-    //     const searchValue = document.getElementById("searchValue");
-    //     selectOpt.innerText = selectOpt.innerText;
-    //     searchValue.value = searchValue.value;
-    //
-    // }
+
 </script>
 </html>

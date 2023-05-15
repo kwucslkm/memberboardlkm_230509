@@ -55,4 +55,9 @@ public class MemberRepository {
         List<MemberDTO> memberDTOList = sql.selectList("Mb_member.memberList");
         return memberDTOList;
     }
+
+    public void memberDelete(Long memberId) {
+        System.out.println("REPOSImemberId = " + memberId);
+        sql.delete("Mb_member.memberDel",memberId);
+    }
 }

@@ -59,12 +59,46 @@
             </tr>
         </c:if>
     </table>
+    <br>
+    <div id="memberDel">
+        <h4 id="memberDelete"></h4>
+        <button id="memberDelBtn" style="display: none; width: 20px; height: 10px" onclick="memberDel(${member.id})"></button>
+    </div>
 </div>
 
 
 <%@include file="../component/footer.jsp" %>
 </body>
 <script>
+const memberDelLink = document.getElementById("memberDelete");
+const memberDelBtn = document.getElementById("memberDelBtn");
+const memberId = '${member.id}';
+console.log("${sessionScope.loginEmail}");
+console.log("${member.memberEmail}");
 
+if('${sessionScope.loginEmail}' == 'admin' ) {
+    console.log("memberId "+memberId);
+    // let memberDElHtml = "<a href=\'/memberDelete?id=";
+    // memberDElHtml += memberId;
+    // memberDElHtml += "\'>회원삭제</a>"
+    // console.log(memberDElHtml);
+    // memberDelLink.innerHTML = memberDElHtml;
+    memberDelBtn.style.display = 'block';
+    memberDelBtn.style.width = '100px';
+    memberDelBtn.style.height = '20px';
+    memberDelBtn.innerText='회원삭제';
+
+
+
+    memberDelLink.innerHTML = "<a href=\'/memberDelete?id="+memberId+"\'>회원삭제</a>";
+            <%--<a href="/board?id=${board.id}">${board.boardTitle}</a>--%>
+    // "<a href='/mypage'> "+loginEmail +" 님 페이지!</a><a href='/logout'>logout</a>";
+    // memberDelLink.innerHTML ='<a href="/memberDelete?id= memberId">회원삭제</a>';
+
+}
+const memberDel = (memberId) => {
+    location.href="/memberDelete?id="+memberId;
+
+}
 </script>
 </html>

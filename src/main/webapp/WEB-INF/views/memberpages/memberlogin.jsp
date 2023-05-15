@@ -21,7 +21,7 @@
 <div id="section">
   <h2>로그인</h2>
   <form action="/memberLogin"  id="memberLoginForm" method="post" >
-    <input type="text" name="memberEmail" class="memberLoginInput" placeholder="이메일을 입력하세요"  id="member-email" onblur="emailchk()"> <br>
+    <input type="text" name="memberEmail" class="memberLoginInput" placeholder="이메일을 입력하세요"  id="member-email">
     <p id="check-result"></p>
     <input type="text" name="memberPassword" class="memberLoginInput" placeholder="비밀번호를 입력하세요"> <br>
     <h6 id="loginchk"></h6>
@@ -35,7 +35,7 @@
 <script>
 const loginchk = () => {
 
-  alert("로그인되었습니다.")
+  // alert("로그인되었습니다.")
 
 
 }
