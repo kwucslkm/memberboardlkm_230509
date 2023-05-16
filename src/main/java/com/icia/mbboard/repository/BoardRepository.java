@@ -85,4 +85,10 @@ public class BoardRepository {
         return sql.selectOne("Mb_board.searchCount", pagingParams);
 
     }
+
+    public List<BoardDTO> findByBoardId(Long memberId) {
+        System.out.println("쓴 글목록찾을memberId = " + memberId);
+        List<BoardDTO> boardDTOList = sql.selectList("Mb_board.findByBoardId",memberId);
+        return boardDTOList;
+    }
 }

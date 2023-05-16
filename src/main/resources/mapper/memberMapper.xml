@@ -35,6 +35,10 @@
     <delete id="memberDel" parameterType="Long">
         delete from mb_member where id = #{memberId}
     </delete>
+    <update id="memberUpdate" parameterType="member">
+        update mb_member set memberEmail=#{memberEmail},memberName=#{memberName}, memberMobile=#{memberMobile} where id = #{id}
+
+    </update>
 </mapper>
 
 

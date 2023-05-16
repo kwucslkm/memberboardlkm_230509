@@ -71,10 +71,12 @@ public class BoardController {
 
     @GetMapping("/board")
     public String findById(@RequestParam("id") Long id, Model model) {
-//        System.out.println("보드상세조회보드id = " + id);
+        System.out.println("보드상세조회보드id = " + id);
         boardService.boardCntHits(id);
         BoardDTO boardDTO = boardService.findById(id);
         MemberDTO memberDTO = memberService.findMemberById(boardDTO.getMemberId());
+        System.out.println("boardDTO = " + boardDTO);
+        System.out.println("memberDTO = " + memberDTO);
         model.addAttribute("member", memberDTO);
         model.addAttribute("boardDetail", boardDTO);
         if (boardDTO.getFileAttached() == 1) {
@@ -82,6 +84,7 @@ public class BoardController {
             model.addAttribute("boardFileList", boardFileDTOList);
         }
         List<CommentDTO> commentDTOList = commentService.commentFindAll(id);
+        System.out.println("댓글가져온거 있나"+commentDTOList);
         model.addAttribute("commentList", commentDTOList);
         return "boardpages/boardDetail";
     }
@@ -109,5 +112,15 @@ public class BoardController {
         boardService.boardDel(boardId);
         return "redirect:/findAll";
     }
+    @GetMapping("/boardFindByEmail")
+    public String boardFindByEmail(@RequestParam("loginEmail") String loginEmail, Model model){
+        MemberDTO memberDTO = memberService.findByMemberEmail(loginEmail);
+        System.out.println("memberDTO = " + memberDTO);
+        Long memberId = memberDTO.getId();
+        System.out.println("memberId = " + memberId);
+        List<BoardDTO> boardDTOList = boardService.findByBoardId(memberId);
 
+        model.addAttribute("findbyboardId",boardDTOList);
+        return "memberpages/memberWriteBoard";
+    }
 }

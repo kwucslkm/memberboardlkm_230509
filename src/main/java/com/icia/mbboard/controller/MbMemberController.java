@@ -117,7 +117,32 @@ public class MbMemberController {
 
         return "redirect:/memberList";
     }
+    @GetMapping("/memberSelfOut")
+    public String memberSelfOut(@RequestParam("id") Long memberId, HttpSession session){
+        System.out.println("탈퇴 id = " + memberId);
+        session.invalidate();
+        memberService.memberDelete(memberId);
 
+        return "redirect:/memberList";
+    }
+    @GetMapping("/memberUpdate")
+    public String memberUPdate(@RequestParam("id") Long id, Model model){
+        MemberDTO memberDTO = memberService.findMemberById(id);
+        model.addAttribute("member",memberDTO);
+        return "memberpages/memberUpdateForm";
+    }
+    @PostMapping("/memberUpdate")
+    public String memberUpdateForm(@ModelAttribute MemberDTO memberDTO, HttpSession session){
+//        System.out.println("업데이트폼에서넘어온memberDTO = " + memberDTO);
+        int result = memberService.memberUpdate(memberDTO);
+        if (result==1) {
+            session.invalidate();
+            return "redirect:/memberLogin";
+        }else {
+            System.out.println("수정 실패");
+            return "redirect:/memberPage";
+        }
+    }
 }
 
 

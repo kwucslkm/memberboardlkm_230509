@@ -45,6 +45,9 @@
     <select id="searchCount" parameterType="java.util.HashMap" resultType="Integer">
         select count(id) from mb_board where ${type} like concat('%', #{q}, '%')
     </select>
+    <select id="findByBoardId" resultType="board" parameterType="Long">
+        select * from mb_board where memberId = #{memberId}
+    </select>
 
 
 

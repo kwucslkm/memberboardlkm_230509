@@ -42,10 +42,11 @@
         loginArea.innerHTML = "<a href='/mypage' style='color: yellow;'>"+loginEmail +" 님 페이지!</a>"+
                                 "<a href='/logout'>logout</a>";
         if(loginEmail == 'admin'){
-            navmenu1.innerHTML = "<a href='/memberList'>회원목록</a>";
+            navmenu1.innerHTML = "<a href='/memberList'>관리자페이지(회원목록)</a>";
         }
         loginmenu1.innerHTML = "<a href = '/boardSave'>게시글쓰기</a>";
-        loginmenu2.innerHTML = "<a href = '/boardFindByEmail'>내글보러가기</a>";
+        loginmenu2.innerHTML = "<a href = \'/boardFindByEmail?loginEmail="+loginEmail+"\'>내글보러가기</a>";
+                                // "<a href=\'/memberDelete?id="+memberId+"\'>회원삭제</a>";
 
     } else {
         loginArea.innerHTML = "<a href='/memberLogin'>login</a>";

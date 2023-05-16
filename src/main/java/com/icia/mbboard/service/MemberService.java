@@ -94,4 +94,9 @@ public class MemberService {
         memberRepository.memberDelete(memberId);
 
     }
+
+    public int memberUpdate(MemberDTO memberDTO) {
+        int memberUpdateResult = memberRepository.memberUpdate(memberDTO);
+return memberUpdateResult;
+    }
 }

@@ -60,10 +60,11 @@
 
     </table>
     <c:if test="${member.memberEmail == sessionScope.loginEmail}">
-        <button onclick="board_update(${boardDetail.id})">수정</button>
-        <button onclick="board_delete(${boardDetail.id})">삭제</button>
+        <button onclick="board_update()">수정</button>
+        <button onclick="board_delete()">삭제</button>
     </c:if>
-    <a href="/findAll">목록</a><br><br>
+    <br>
+    <a href="/pagingList">목록</a><br><br>
     <div id="comment-writer-area">
         <input type="text" id="comment-writer" value="${member.memberName}" readonly>
         <input type="text" id="comment-contents" placeholder="내용">
@@ -71,7 +72,7 @@
     </div>
     <div id="comment-list">
         <c:choose>
-            <c:when test="${commentList == null}">
+            <c:when test="${commentList == []}">
                 <h2>작성된 댓글이 없습니다.</h2>
             </c:when>
             <c:otherwise>
@@ -93,7 +94,7 @@
                         </td>
                         <td>
                             <c:if test="${member.memberEmail == sessionScope.loginEmail}">
-                                <button id="commentDelBtn" class="commentDelbtn" onClick="commentDel()"></button>
+                                <button id="commentDelBtn" class="commentDelbtn" style="height: 30px; width: 100px; background-color: chocolate; color: white;" onClick="commentDel()"></button>
                             </c:if>
                         </td>
                     </tr>
@@ -108,6 +109,13 @@
 <%@include file="../component/footer.jsp" %>
 </body>
 <script>
+    const board_update = () => {
+        location.href = "/boardUpdate?id=" + ${boardDetail.id};
+    }
+    const board_delete = () => {
+        location.href = "/boardDelete?id=" + ${boardDetail.id};
+
+    }
     const comment_write = (commentWriteName) => {
         const commentContents = document.getElementById("comment-contents").value;
         const boardId = ${boardDetail.id};
@@ -143,7 +151,7 @@
                     output += "<td>" + res[i].commentWriter + "</td>";
                     output += "<td>" + res[i].commentContents + "</td>";
                     output += "<td>" + res[i].commentCreatedDate + "</td>";
-                    output += "<td>" + <c:if test="${member.memberEmail == sessionScope.loginEmail}"> <button id="commentDelBtn" onClick="commentDel()"></button></c:if> + "</td>";
+
                     <%--<button id="memberDelBtn" style="display: none; width: 20px; height: 10px" onclick="memberDel(${member.id})"></button>--%>
                     // output += "<td>" + res[i].commentCreatedDate+"<"
                     // output += "<td>" + moment(res[i].commentCreatedDate).format("YYYY-MM-DD HH:mm:ss") + "</td>";
@@ -163,13 +171,7 @@
 
     }
 
-    const board_update = (id) => {
-        location.href = "/boardUpdate?id=" + id;
-    }
-    const board_delete = (id) => {
-        location.href = "/boardDelete?id=" + id;
 
-    }
 
 </script>
 </html>

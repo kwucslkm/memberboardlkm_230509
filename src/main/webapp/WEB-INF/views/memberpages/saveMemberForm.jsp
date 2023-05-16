@@ -23,13 +23,16 @@
     <form action="/saveMember" method="post" id="memberSaveForm" enctype="multipart/form-data">
         <input type="text" name="memberEmail" placeholder="이메일" class="memberSaveInput" id="member-email"
                onblur="emailchk()">
-        <h6 id="check-result"></h6>
+        <h6 id="check-result"></h6><br>
         <input type="text" name="memberPassword" class="memberSaveInput" id="password" onblur="password_chk()" placeholder="비밀번호">
-        <h6 id="pwCheck-result"></h6>
+        <h6 id="pwCheck-result"></h6><br>
         <input type="text" name="memberName" class="memberSaveInput" placeholder="이름"> <br>
-        <input type="text" name="memberMobile" class="memberSaveInput" placeholder="전화번호"> <br>
+        <input type="text" name="memberMobile" class="memberSaveInput" id="memberPhone" onblur="memberPhone_chk()" placeholder="전화번호">
+        <h6 id="phone-result"></h6>
+
         <input type="file" name="memberProfileFile" class="memberSaveInput" multiple> <br>
         <input type="submit" class="memberSaveInput" value="회원가입" onclick="memberSaveResult()">
+
     </form>
 </div>
 
@@ -37,10 +40,28 @@
 <%@include file="../component/footer.jsp" %>
 </body>
 <script>
+    const tel1 = /^\d{3}-\d{4}-\d{4}$/;
+
+    const memberPhone_chk = () => {
+        const memberPhone = document.getElementById("memberPhone").value;
+        const phoneChkResult = document.getElementById("phone-result");
+        if(memberPhone.length == 0){
+
+            phoneChkResult.innerText = "필수 입력 사항입니다.";
+            phoneChkResult.style.color="red";
+        }else if(!memberPhone.match(tel1)) {
+            phoneChkResult.innerText="000-0000으로 입력 해 주세요";
+            phoneChkResult.style.color="red";
+        }else{
+            phoneChkResult.innerText = "좋아요";
+            phoneChkResult.style.color="green";
+
+        }
+
+    }
     const emailchk = () => {
         const email = document.getElementById("member-email").value;
         const emailChkResult = document.getElementById("check-result");
-
         $.ajax({
             type: "post",
             url: "/email-chk",

@@ -116,6 +116,12 @@ public class BoardService {
         pageDTO.setEndPage(endPage);
         return pageDTO;
     }
+
+    public List<BoardDTO> findByBoardId(Long memberId) {
+        List<BoardDTO> boardDTOList = boardRepository.findByBoardId(memberId);
+
+        return boardDTOList;
+    }
     //    public List<BoardDTO> searchList(int page, String type, String q) {
 //        Map<String, Object> pagingParams = pagingListmap(page);
 //        pagingParams.put("q", q);

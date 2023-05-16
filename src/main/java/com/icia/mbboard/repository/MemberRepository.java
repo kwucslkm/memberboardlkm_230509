@@ -26,12 +26,13 @@ public class MemberRepository {
     }
 
     public MemberDTO findByMemberEmail(String memberEmail) {
-//        System.out.println("서비스에서 받으거 = " + memberEmail);
+        System.out.println("서비스에서 받으거 = " + memberEmail);
         MemberDTO memberDTO =sql.selectOne("Mb_member.findByEmail",memberEmail);
-        if (memberDTO!=null)
-            System.out.println("reposi디비에서 찾아봤는데 이미 있음 = " + memberDTO);
-        else
-            System.out.println(memberEmail+"reposi좋은아이디 회원가입 진행");
+        if (memberDTO!=null) {
+            System.out.println("memberEmail 조회 성공");
+        }else {
+            System.out.println(memberEmail + "reposi딴 해당 이메일회원이 없습니다.");
+        }
         return memberDTO;
 
     }
@@ -59,5 +60,11 @@ public class MemberRepository {
     public void memberDelete(Long memberId) {
         System.out.println("REPOSImemberId = " + memberId);
         sql.delete("Mb_member.memberDel",memberId);
+    }
+
+    public int memberUpdate(MemberDTO memberDTO) {
+        System.out.println("레파지토리까지 온memberDTO = " + memberDTO);
+        int memberUpdateResult = sql.update("Mb_member.memberUpdate",memberDTO);
+        return memberUpdateResult;
     }
 }
