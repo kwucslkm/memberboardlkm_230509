@@ -67,4 +67,7 @@ public class MemberRepository {
         int memberUpdateResult = sql.update("Mb_member.memberUpdate",memberDTO);
         return memberUpdateResult;
     }
+    public Long findIdBySessionEmail(String loginEmailchk) {
+        return sql.selectOne("Mb_member.findIdByEmail",loginEmailchk);
+    }
 }

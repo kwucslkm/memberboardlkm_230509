@@ -25,9 +25,9 @@
        게시글번호: <input type="text" name="id" id="boardId" value="${boardUpdate.id}" readonly > <br>
         작성자:<input type="text" name="boardWriter" value="${boardUpdate.boardWriter}" readonly disabled> <br>
         글제목:<input type="text" name="boardTitle" value="${boardUpdate.boardTitle}"> <br>
-        글내용:<textarea name="boardContents" cols="50" rows="50">${boardUpdate.boardContents}</textarea> <br>
+        글내용:<textarea name="boardContents" cols="30" rows="30">${boardUpdate.boardContents}</textarea> <br>
         <input type="text" name="memberPassword" id="memberPassword" placeholder="비밀번호"> <br>
-        <input type="button" value="수정" onclick="boardUpdate(${bmember.memberPassword})">
+        <input type="button" value="수정" onclick="boardUpdate( '${bmember.memberPassword}' )">
 
     </form>
 </div>

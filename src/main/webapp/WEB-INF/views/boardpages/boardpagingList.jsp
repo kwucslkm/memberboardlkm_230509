@@ -27,6 +27,12 @@
                 <option value="boardWriter">작성자</option>
             </select>
             <input type="text" id="searchValue" name="q" placeholder="검색어를 입력하세요">
+            <select name="pageMaxBoard" id="selectPageMaxBoard" >
+                <option value="3">3개씩보기</option>
+                <option value="5">5개씩보기</option>
+                <option value="7">7개씩보기</option>
+                <option value="10">10개씩보기</option>
+            </select>
             <input type="submit" value="검색" onclick="searchValueSave()">
         </form>
     </div>
@@ -44,10 +50,11 @@
         <c:forEach items="${pagingList}" var="board">
             <tr>
                 <td>${board.id}</td>
-                <td><a href="/board?id=${board.id}&q=${q}&type=${type}&page=${paging.page}">${board.boardTitle}</a>
+                <td><a href="/board?id=${board.id}&q=${q}&type=${type}&page=${paging.page}&pageMaxBoard=${pageMaxBoard}">${board.boardTitle}</a>
                     <c:if test="${board.fileAttached == 1}">
                         @
                     </c:if>
+
 
                 </td>
                 <td>${board.boardWriter}</td>
@@ -71,7 +78,7 @@
             <%-- 1페이지가 아닌 경우에는 [이전]을 클릭하면 현재 페이지보다 1 작은 페이지 요청 --%>
             <c:otherwise>
                 <li class="page-item">
-                    <a class="page-link" href="/pagingList?page=${paging.page-1}&q=${q}&type=${type}">[이전]</a>
+                    <a class="page-link" href="/pagingList?page=${paging.page-1}&q=${q}&type=${type}&pageMaxBoard=${pageMaxBoard}">[이전]</a>
 <%--                    <a class="page-link" href="/board/pagingList?page=${paging.page-1}&q=${q}&type=${type}">[이전]</a>--%>
                 </li>
             </c:otherwise>
@@ -90,7 +97,7 @@
                 <c:otherwise>
                     <li class="page-item">
 <%--                    <a class="page-link" href="/board/paging?page=${i}&q=${q}&type=${type}">${i}</a>--%>
-                        <a class="page-link" href="/pagingList?page=${i}&q=${q}&type=${type}">${i}</a>
+                        <a class="page-link" href="/pagingList?page=${i}&q=${q}&type=${type}&pageMaxBoard=${pageMaxBoard}">${i}</a>
                     </li>
                 </c:otherwise>
             </c:choose>
@@ -104,7 +111,7 @@
             </c:when>
             <c:otherwise>
                 <li class="page-item">
-                    <a class="page-link" href="/pagingList?page=${paging.page+1}&q=${q}&type=${type}">[다음]</a>
+                    <a class="page-link" href="/pagingList?page=${paging.page+1}&q=${q}&type=${type}&pageMaxBoard=${pageMaxBoard}">[다음]</a>
                 </li>
             </c:otherwise>
         </c:choose>
@@ -117,6 +124,9 @@
 
 </body>
 <script>
+    const selectMaxBoard = () => {
+        <%--location.href="/board?id=${board.id}&q=${q}&type=${type}&page=${paging.page}&pageMaxBoard=${pageMaxBoard}"--%>
 
+    }
 </script>
 </html>

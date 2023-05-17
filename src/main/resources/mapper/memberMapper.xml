@@ -39,6 +39,9 @@
         update mb_member set memberEmail=#{memberEmail},memberName=#{memberName}, memberMobile=#{memberMobile} where id = #{id}
 
     </update>
+    <select id="findIdByEmail" resultType="Long" parameterType="String">
+        select id from mb_member where memberEmail = #{memberEmail}
+    </select>
 </mapper>
 
 

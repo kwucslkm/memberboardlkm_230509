@@ -27,4 +27,12 @@ private SqlSessionTemplate sql;
 //        System.out.println("디비에서 받아온commentDTO 첫번째 = " + dtoList.get(0).toString());
         return dtoList;
     }
+
+    public void commentDelete(Long id) {
+        sql.delete("Mb_Comment.commentDel",id);
+    }
+
+    public Integer findCommentCntByboardId(Long id) {
+        return sql.selectOne("Mb_comment.commentCnt",id);
+    }
 }

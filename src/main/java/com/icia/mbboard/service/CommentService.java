@@ -23,4 +23,12 @@ public class CommentService {
         List<CommentDTO> commentDTOList = commentRepository.commentFindAll(boardId);
         return commentDTOList;
     }
+
+    public void commentDelete(Long id) {
+        commentRepository.commentDelete(id);
+    }
+
+    public Integer findCommentCntByBoardId(Long id) {
+        return commentRepository.findCommentCntByboardId(id);
+    }
 }

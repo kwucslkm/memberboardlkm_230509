@@ -91,4 +91,6 @@ public class BoardRepository {
         List<BoardDTO> boardDTOList = sql.selectList("Mb_board.findByBoardId",memberId);
         return boardDTOList;
     }
+
+
 }

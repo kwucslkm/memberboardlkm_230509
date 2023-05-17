@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -70,8 +71,8 @@ public class BoardService {
         boardRepository.boardDel(boardId);
     }
 
-    public Map<String, Object> pagingListmap(int page, String type, String q) {
-        int pageLimit = 5;//한페이지에 보여 줄 글 갯수
+    public Map<String, Object> pagingListmap(int page, String type, String q, int pageMaxBoard) {
+        int pageLimit = pageMaxBoard;//한페이지에 보여 줄 글 갯수
         int pageStart = (page - 1) * pageLimit;
         Map<String, Object> pagingParam = new HashMap<>();
         pagingParam.put("start", pageStart);
@@ -80,18 +81,27 @@ public class BoardService {
         pagingParam.put("type", type);
         return pagingParam;
     }
-    public List<BoardDTO> pagingList(int page, String type, String q) {
-        Map<String, Object> pagingParam = pagingListmap(page, type, q);
+    public List<BoardDTO> pagingList(int page, String type, String q, int pageMaxBoard) {
+        Map<String, Object> pagingParam = pagingListmap(page, type, q, pageMaxBoard);
         List<BoardDTO> boardDTOList;
         if (q.equals("")) {
             boardDTOList = boardRepository.pagingList(pagingParam);
         } else {
             boardDTOList = boardRepository.searchList(pagingParam);
-        } return boardDTOList;
+
+        }
+//        List<Long> boardGetId = new ArrayList<>();
+//
+//        for (BoardDTO boardId : boardDTOList){
+//            boardGetId.add(boardId.getId());
+//
+//        }
+
+        return boardDTOList;
     }
 
-    public PageDTO pagingSearchParam(int page, String type, String q) {
-        int pageLimit = 5; // 한페이지에 보여줄 글 갯수
+    public PageDTO pagingSearchParam(int page, String type, String q, int pageMaxBoard) {
+        int pageLimit = pageMaxBoard; // 한페이지에 보여줄 글 갯수
         int blockLimit = 3; // 하단에 보여줄 페이지 번호 갯수
         int boardCnt = 0;
         if (q.equals("")) {
@@ -122,6 +132,8 @@ public class BoardService {
 
         return boardDTOList;
     }
+
+
     //    public List<BoardDTO> searchList(int page, String type, String q) {
 //        Map<String, Object> pagingParams = pagingListmap(page);
 //        pagingParams.put("q", q);

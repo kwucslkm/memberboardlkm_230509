@@ -23,7 +23,7 @@
     <form action="/boardSave" method="post" enctype="multipart/form-data">
         작성자:<input type="text" name="boardWriter" id="Writer" readonly > <br>
         제목:<input type="text" name="boardTitle" placeholder="제목을 입력하세요"> <br>
-        내용:<textarea name="boardContents" cols="40" rows="20"></textarea> <br>
+        내용:<textarea name="boardContents" cols=30" rows="40"></textarea> <br>
         <input type="file" name="boardFile" multiple> <br>
         <input type="submit" value="작성">
     </form>

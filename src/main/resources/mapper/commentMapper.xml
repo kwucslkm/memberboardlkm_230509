@@ -13,4 +13,10 @@
     <select id="findAll" parameterType="Long" resultType="comment">
         select * from mb_comment where boardId=#{boardId} order by id desc
     </select>
+    <delete id="commentDel" parameterType="Long">
+        delete from mb_comment where id=#{id}
+    </delete>
+    <select id="commentCnt" parameterType="Long" resultType="Long">
+        select count(id) from mb_comment where boardId=#{boardId}
+    </select>
 </mapper>

@@ -99,4 +99,7 @@ public class MemberService {
         int memberUpdateResult = memberRepository.memberUpdate(memberDTO);
 return memberUpdateResult;
     }
+    public Long findIdBySessionEmail(String loginEmailchk) {
+        return memberRepository.findIdBySessionEmail(loginEmailchk);
+    }
 }

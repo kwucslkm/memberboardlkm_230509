@@ -25,9 +25,9 @@
         <input type="text" name="memberEmail" class="memberUpdateInput" id="member-email" value="${member.memberEmail}">
         <input type="text" name="memberName" class="memberUpdateInput" value="${member.memberName}"> <br>
         <input type="text" name="memberMobile" class="memberUpdateInput" value="${member.memberMobile}" > <br>
-        <input type="file" name="memberProfileFile" multiple> <br>
+<%--        <input type="file" name="memberProfileFile" multiple> <br>--%>
         <input type="text" name="memberPassword" id="memberPassword" placeholder="비밀번호"> <br>
-        <input type="button" value="수정" onclick="member_Update(${member.memberPassword})">
+        <input type="button" value="수정" onclick="member_Update( '${member.memberPassword}' )">
     </form>
 </div>
 
@@ -37,6 +37,7 @@
 <script>
     const member_Update = (password) => {
         const memberPassword = document.getElementById("memberPassword");
+
         console.log(memberPassword.value);
         console.log(password);
         if (memberPassword.value == password){

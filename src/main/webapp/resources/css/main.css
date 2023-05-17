@@ -16,7 +16,7 @@
 }
 #section {
     background-color: #e4e4e4;
-    border: 1px solid blue;
+    /*border: 1px solid blue;*/
     padding: 20px;
     text-align: center;
     /*width: 600px;*/
@@ -90,9 +90,12 @@
 /*    margin: 0 auto;*/
 /*}*/
 #section .index_btn {
-    width: 30%;
-    height: 6%;
-    background-color: #04414d ;
+    width: 300px;
+    height: 100px;
+    /*!*height: 10%;**/
+    /*width: 20%;*/
+    /*height: 10%;*/
+    background-color: #0d6efd ;
     color: white;
     font-size: 20px;
     font-weight: bold;
@@ -101,6 +104,9 @@
 input {
     display: block;
     text-align: left;
+}
+#selectPageMaxBoard {
+    float: left;
 }
 
 

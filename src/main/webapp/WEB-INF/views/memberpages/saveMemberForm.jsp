@@ -43,15 +43,17 @@
     const tel1 = /^\d{3}-\d{4}-\d{4}$/;
 
     const memberPhone_chk = () => {
-        const memberPhone = document.getElementById("memberPhone").value;
+        const memberPhone = document.getElementById("memberPhone");
         const phoneChkResult = document.getElementById("phone-result");
         if(memberPhone.length == 0){
 
             phoneChkResult.innerText = "필수 입력 사항입니다.";
             phoneChkResult.style.color="red";
-        }else if(!memberPhone.match(tel1)) {
-            phoneChkResult.innerText="000-0000으로 입력 해 주세요";
+        }else if(!memberPhone.value.match(tel1)) {
+            phoneChkResult.innerText="000-0000-0000으로 입력 해 주세요";
             phoneChkResult.style.color="red";
+            memberPhone.focus();
+
         }else{
             phoneChkResult.innerText = "좋아요";
             phoneChkResult.style.color="green";

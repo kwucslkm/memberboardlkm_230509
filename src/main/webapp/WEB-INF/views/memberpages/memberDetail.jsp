@@ -78,15 +78,11 @@
     const memberDelLink = document.getElementById("memberDelete");
     const memberDelBtn = document.getElementById("memberDelBtn");
     const memberId = '${member.id}';
-    console.log("${sessionScope.loginEmail}");
-    console.log("${member.memberEmail}");
     const member_SelfOut = () => {
         location.href="/memberSelfOut?id="+memberId;
-
     }
     const memberUpdate = () => {
         location.href = "/memberUpdate?id=" +${member.id};
-
     }
     if ('${sessionScope.loginEmail}' == 'admin') {
         console.log("memberId " + memberId);

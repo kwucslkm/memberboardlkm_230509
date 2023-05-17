@@ -4,6 +4,7 @@ import com.icia.mbboard.dto.*;
 import com.icia.mbboard.service.BoardService;
 import com.icia.mbboard.service.CommentService;
 import com.icia.mbboard.service.MemberService;
+import org.apache.ibatis.ognl.IntHashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class BoardController {
@@ -56,21 +60,37 @@ public class BoardController {
     public String pagingList(@RequestParam(value = "page", required = false, defaultValue = "1") int page,
                              @RequestParam(value = "q", required = false, defaultValue = "") String q,
                              @RequestParam(value = "type", required = false, defaultValue = "boardTitle") String type,
+                             @RequestParam(value = "pageMaxBoard", required = false, defaultValue = "3") int pageMaxBoard,
                              Model model) {
 //        System.out.println("여기는컨트롤 "+"page = " + page + ", q = " + q + ", type = " + type + ", model = " + model);
-        List<BoardDTO> boardDTOList = boardService.pagingList(page, type, q);
-        PageDTO pageDTO = boardService.pagingSearchParam(page, type, q);
+        List<BoardDTO> boardDTOList = boardService.pagingList(page, type, q, pageMaxBoard);
+        PageDTO pageDTO = boardService.pagingSearchParam(page, type, q, pageMaxBoard);
+        List<Long> boardGetId = new ArrayList<>();
+        Map<Long, Integer> commentCnt = new HashMap<>();
+
+        for (BoardDTO boardId : boardDTOList){
+
+            commentCnt.put(boardId.getId(),commentService.findCommentCntByBoardId(boardId.getId()));
+        }
+
         System.out.println(pageDTO.getPage());
         model.addAttribute("pagingList", boardDTOList);
         model.addAttribute("paging", pageDTO);
-        model.addAttribute("q",q);
-        model.addAttribute("type",type);
+        model.addAttribute("q", q);
+        model.addAttribute("type", type);
+        model.addAttribute("pageMaxBoard",pageMaxBoard);
+        model.addAttribute("commentCnt",commentCnt);
 
         return "boardpages/boardpagingList";
     }
 
     @GetMapping("/board")
-    public String findById(@RequestParam("id") Long id, Model model) {
+    public String findById(@RequestParam("id") Long id,
+                           @RequestParam(value = "page", required = false, defaultValue = "0") int page,
+                           @RequestParam(value = "q", required = false, defaultValue = "") String q,
+                           @RequestParam(value = "type", required = false, defaultValue = "boardTitle") String type,
+                           @RequestParam(value = "pageMaxBoard", required = false, defaultValue = "3") int pageMaxBoard,
+                           Model model, HttpSession session) {
         System.out.println("보드상세조회보드id = " + id);
         boardService.boardCntHits(id);
         BoardDTO boardDTO = boardService.findById(id);
@@ -78,14 +98,26 @@ public class BoardController {
         System.out.println("boardDTO = " + boardDTO);
         System.out.println("memberDTO = " + memberDTO);
         model.addAttribute("member", memberDTO);
+        model.addAttribute("page", page);
+        model.addAttribute("q", q);
+        model.addAttribute("type", type);
         model.addAttribute("boardDetail", boardDTO);
+        model.addAttribute("pageMaxBoard", pageMaxBoard);
         if (boardDTO.getFileAttached() == 1) {
             List<BoardFileDTO> boardFileDTOList = boardService.findBoardFile(id);
             model.addAttribute("boardFileList", boardFileDTOList);
         }
-        List<CommentDTO> commentDTOList = commentService.commentFindAll(id);
-        System.out.println("댓글가져온거 있나"+commentDTOList);
+        List<CommentDTO> commentDTOList = commentService.commentFindAll(id);//보드id로 댓글가져오기
+        System.out.println("댓글가져온거 있나" + commentDTOList);
         model.addAttribute("commentList", commentDTOList);
+        String loginEmailchk = (String) session.getAttribute("loginEmail");
+        if (loginEmailchk != null) {
+            Long loginMemberId = memberService.findIdBySessionEmail(loginEmailchk);
+            System.out.println("세션에 있는 로그인 이메일로 가져온 memberId" + loginMemberId);
+            model.addAttribute("loginMemberId", loginMemberId);
+        } else {
+            System.out.println("아직 로그인전입니다.");
+        }
         return "boardpages/boardDetail";
     }
 
@@ -104,7 +136,7 @@ public class BoardController {
     @PostMapping("/boardUpdate")
     public String boardUpdate(@ModelAttribute BoardDTO boardDTO) {
         boardService.boardUpdate(boardDTO);
-        return "redirect:/findAll";
+        return "redirect:/pagingList";
     }
 
     @GetMapping("/boardDelete")
@@ -112,15 +144,16 @@ public class BoardController {
         boardService.boardDel(boardId);
         return "redirect:/findAll";
     }
+
     @GetMapping("/boardFindByEmail")
-    public String boardFindByEmail(@RequestParam("loginEmail") String loginEmail, Model model){
+    public String boardFindByEmail(@RequestParam("loginEmail") String loginEmail, Model model) {
         MemberDTO memberDTO = memberService.findByMemberEmail(loginEmail);
         System.out.println("memberDTO = " + memberDTO);
         Long memberId = memberDTO.getId();
         System.out.println("memberId = " + memberId);
         List<BoardDTO> boardDTOList = boardService.findByBoardId(memberId);
 
-        model.addAttribute("findbyboardId",boardDTOList);
+        model.addAttribute("findbyboardId", boardDTOList);
         return "memberpages/memberWriteBoard";
     }
 }
