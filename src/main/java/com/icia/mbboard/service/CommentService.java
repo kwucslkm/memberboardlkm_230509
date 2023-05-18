@@ -28,7 +28,7 @@ public class CommentService {
         commentRepository.commentDelete(id);
     }
 
-    public Integer findCommentCntByBoardId(Long id) {
+    public Long findCommentCntByBoardId(Long id) {
         return commentRepository.findCommentCntByboardId(id);
     }
 }

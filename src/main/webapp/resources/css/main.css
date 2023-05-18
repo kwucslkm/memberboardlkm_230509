@@ -16,11 +16,8 @@
 }
 #section {
     background-color: #e4e4e4;
-    /*border: 1px solid blue;*/
     padding: 20px;
     text-align: center;
-    /*width: 600px;*/
-    /*height: 600px;*/
 }
 #section h6{
     text-align: center;
@@ -33,15 +30,11 @@
 #memberSaveForm, #memberLoginForm {
     text-align: left;
     margin:  auto;
-    /*width:600px;*/
 
 }
 .memberSaveInput .memberLoginInput{
     /*width: 500px;*/
 }
-/*#section h2 {*/
-/*    text-align: center;*/
-/*}*/
 #footer {
     background-color: black;
     text-align: center;
@@ -71,8 +64,6 @@
      /*overflow: hidden;*/
     margin-left: auto;
     margin-right: auto;
-    /*text-align: center;*/
-    /*margin: 0 auto;*/
  }
 .container{
     width: 100%;
@@ -81,35 +72,52 @@
 }
 #section ul li {
     float: left;
-    /*text-align: center;*/
-    padding-right: 5px;
-    /*margin: 0 auto;*/
+    padding-right: 8px;
 }
-/*#section .container{*/
-/*    text-align: center;*/
-/*    margin: 0 auto;*/
-/*}*/
+#section table td {
+    padding-right: 8px;
+
+}
+
 #section .index_btn {
     width: 300px;
     height: 100px;
-    /*!*height: 10%;**/
-    /*width: 20%;*/
-    /*height: 10%;*/
     background-color: #0d6efd ;
     color: white;
     font-size: 20px;
     font-weight: bold;
-    /*margin-bottom: 0.2px;*/
 }
 input {
     display: block;
     text-align: left;
 }
 #selectPageMaxBoard {
-    float: left;
+    /*float: right;*/
+    text-align: left;
 }
 
+#listTableLevel {
+    /*float: right;*/
+}
+/*#fileAttachGol {*/
+/*    color: #0d6efd;*/
+/*    font-size: 1px;*/
+/*}*/
 
+/*#section #fileAttachGol {*/
+/*    color: red;*/
+/*    font-size: 12px;*/
+/*}*/
+
+#tdSize {
+    text-align: right;
+    padding-right: 20px;
+}
+#tdSize span{
+    color: red;
+    font-size: 12px;
+    font-weight: bold;
+}
 
 
 

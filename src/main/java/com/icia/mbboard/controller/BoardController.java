@@ -60,30 +60,33 @@ public class BoardController {
     public String pagingList(@RequestParam(value = "page", required = false, defaultValue = "1") int page,
                              @RequestParam(value = "q", required = false, defaultValue = "") String q,
                              @RequestParam(value = "type", required = false, defaultValue = "boardTitle") String type,
-                             @RequestParam(value = "pageMaxBoard", required = false, defaultValue = "3") int pageMaxBoard,
+                             @RequestParam(value = "pageMaxBoard", required = false, defaultValue = "5") int pageMaxBoard,
                              Model model) {
+        System.out.println("pageMaxBoard = " + pageMaxBoard);
 //        System.out.println("여기는컨트롤 "+"page = " + page + ", q = " + q + ", type = " + type + ", model = " + model);
         List<BoardDTO> boardDTOList = boardService.pagingList(page, type, q, pageMaxBoard);
         PageDTO pageDTO = boardService.pagingSearchParam(page, type, q, pageMaxBoard);
-        List<Long> boardGetId = new ArrayList<>();
-        Map<Long, Integer> commentCnt = new HashMap<>();
-
+//        Map<Long, Integer> commentCnt = new HashMap<>();
+        List<boardCommentDTO> commentCnt = new ArrayList<>();
         for (BoardDTO boardId : boardDTOList){
-
-            commentCnt.put(boardId.getId(),commentService.findCommentCntByBoardId(boardId.getId()));
+            Long boardid = boardId.getId();
+//            System.out.println("보드리스트에서가져온boardid = " + boardid);
+            boardCommentDTO commentDTO = new boardCommentDTO();
+            commentDTO.setBoardId(boardid);
+            commentDTO.setBoardCommentCount(commentService.findCommentCntByBoardId(boardId.getId()));
+//            System.out.println("카운트포함한commentDTO = " + commentDTO);
+            commentCnt.add(commentDTO);
         }
-
-        System.out.println(pageDTO.getPage());
+//        System.out.println("commentCnt = " + commentCnt);
+//        System.out.println(pageDTO.getPage());
         model.addAttribute("pagingList", boardDTOList);
         model.addAttribute("paging", pageDTO);
         model.addAttribute("q", q);
         model.addAttribute("type", type);
         model.addAttribute("pageMaxBoard",pageMaxBoard);
         model.addAttribute("commentCnt",commentCnt);
-
         return "boardpages/boardpagingList";
     }
-
     @GetMapping("/board")
     public String findById(@RequestParam("id") Long id,
                            @RequestParam(value = "page", required = false, defaultValue = "0") int page,

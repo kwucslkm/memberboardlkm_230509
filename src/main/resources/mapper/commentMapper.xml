@@ -17,6 +17,6 @@
         delete from mb_comment where id=#{id}
     </delete>
     <select id="commentCnt" parameterType="Long" resultType="Long">
-        select count(id) from mb_comment where boardId=#{boardId}
+        select count(id) from mb_comment where boardId=#{id}
     </select>
 </mapper>

@@ -32,7 +32,7 @@ private SqlSessionTemplate sql;
         sql.delete("Mb_Comment.commentDel",id);
     }
 
-    public Integer findCommentCntByboardId(Long id) {
-        return sql.selectOne("Mb_comment.commentCnt",id);
+    public Long findCommentCntByboardId(Long id) {
+        return sql.selectOne("Mb_Comment.commentCnt",id);
     }
 }
