@@ -32,7 +32,7 @@
             <input type="submit" value="검색" onclick="searchValueSave()">
         </form>
     </div>
-    <div >
+    <div id="boardListL">
         <div id="listTableLevel">
             <select name="pageMaxBoard" id="selectPageMaxBoard" onchange="Page_maxBoard(this.value)">
                 <option value="">보기선택</option>
@@ -41,7 +41,7 @@
                 <option value="7">7개씩보기</option>
                 <option value="10">10개씩보기</option>
             </select>
-        </div>
+        </div><br>
         <table id="boardListTable">
             <tr>
                 <th>글번호</th>
