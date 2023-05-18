@@ -12,12 +12,10 @@
   <link rel="stylesheet" href="/resources/css/main.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-
 </head>
 <body>
 <%@include file="../component/header.jsp" %>
 <%@include file="../component/nav.jsp" %>
-
 <div id="section">
   <h2>로그인</h2>
   <form action="/memberLogin"  id="memberLoginForm" method="post" >
@@ -28,20 +26,11 @@
     <input type="submit" class="memberLoginInput" value="로그인" onclick="loginchk()">
   </form>
 </div>
-
-
 <%@include file="../component/footer.jsp" %>
 </body>
 <script>
 const loginchk = () => {
-
   // alert("로그인되었습니다.")
-
-
 }
-
-
-
-
 </script>
 </html>

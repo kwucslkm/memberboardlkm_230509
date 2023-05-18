@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
@@ -31,34 +30,6 @@ public class MbMemberController {
         System.out.println("회원가입성공");
         return "memberpages/memberlogin";
     }
-
-    @GetMapping("/memberList")
-    public String memberFindAll(Model model) {
-        List<MemberDTO> memberDTOList = memberService.memberFindAll();
-
-        model.addAttribute("memberList", memberDTOList);
-        return "memberpages/memberListAll";
-    }
-
-    @GetMapping("/memberLogin")
-    public String loginForm() {
-
-        return "memberpages/memberlogin";
-    }
-
-    @PostMapping("/memberLogin")
-    public String login(@ModelAttribute MemberDTO memberDTO, HttpSession session) {
-        boolean loginResult = memberService.memberLogin(memberDTO);
-        if (loginResult) {
-            session.setAttribute("loginEmail", memberDTO.getMemberEmail());
-            String loginEmailchk = (String) session.getAttribute("loginEmail");
-//            System.out.println("세션에 담긴 = " + loginEmailchk);
-            return "redirect:/pagingList";
-        } else {
-            return "index";
-        }
-    }
-
     @PostMapping("/email-chk")
     public ResponseEntity emailChk(@RequestParam String memberEmail) {
 //        System.out.println("회원가입에서ajax로 보냇어 = " + memberEmail);`
@@ -72,6 +43,33 @@ public class MbMemberController {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
     }
+    @GetMapping("/memberLogin")
+    public String loginForm() {
+        return "memberpages/memberlogin";
+    }
+    @PostMapping("/memberLogin")
+    public String login(@ModelAttribute MemberDTO memberDTO, HttpSession session) {
+        boolean loginResult = memberService.memberLogin(memberDTO);
+        if (loginResult) {
+            session.setAttribute("loginEmail", memberDTO.getMemberEmail());
+            String loginEmailchk = (String) session.getAttribute("loginEmail");
+//            System.out.println("세션에 담긴 = " + loginEmailchk);
+            return "redirect:/pagingList";
+        } else {
+            return "index";
+        }
+    }
+
+    @GetMapping("/memberList")
+    public String memberFindAll(Model model) {
+        List<MemberDTO> memberDTOList = memberService.memberFindAll();
+
+        model.addAttribute("memberList", memberDTOList);
+        return "memberpages/memberListAll";
+    }
+
+
+
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {
