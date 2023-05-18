@@ -4,7 +4,6 @@ import com.icia.mbboard.dto.*;
 import com.icia.mbboard.service.BoardService;
 import com.icia.mbboard.service.CommentService;
 import com.icia.mbboard.service.MemberService;
-import org.apache.ibatis.ognl.IntHashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,9 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class BoardController {
@@ -63,30 +60,26 @@ public class BoardController {
                              @RequestParam(value = "pageMaxBoard", required = false, defaultValue = "5") int pageMaxBoard,
                              Model model) {
         System.out.println("pageMaxBoard = " + pageMaxBoard);
-//        System.out.println("여기는컨트롤 "+"page = " + page + ", q = " + q + ", type = " + type + ", model = " + model);
         List<BoardDTO> boardDTOList = boardService.pagingList(page, type, q, pageMaxBoard);
         PageDTO pageDTO = boardService.pagingSearchParam(page, type, q, pageMaxBoard);
-//        Map<Long, Integer> commentCnt = new HashMap<>();
-        List<boardCommentDTO> commentCnt = new ArrayList<>();
-        for (BoardDTO boardId : boardDTOList){
+        List<BoardCommentDTO> commentCnt = new ArrayList<>();
+        for (BoardDTO boardId : boardDTOList) {
             Long boardid = boardId.getId();
-//            System.out.println("보드리스트에서가져온boardid = " + boardid);
-            boardCommentDTO commentDTO = new boardCommentDTO();
+            BoardCommentDTO commentDTO = new BoardCommentDTO();
             commentDTO.setBoardId(boardid);
             commentDTO.setBoardCommentCount(commentService.findCommentCntByBoardId(boardId.getId()));
-//            System.out.println("카운트포함한commentDTO = " + commentDTO);
             commentCnt.add(commentDTO);
         }
-//        System.out.println("commentCnt = " + commentCnt);
-//        System.out.println(pageDTO.getPage());
         model.addAttribute("pagingList", boardDTOList);
         model.addAttribute("paging", pageDTO);
         model.addAttribute("q", q);
         model.addAttribute("type", type);
-        model.addAttribute("pageMaxBoard",pageMaxBoard);
-        model.addAttribute("commentCnt",commentCnt);
+        model.addAttribute("pageMaxBoard", pageMaxBoard);
+        model.addAttribute("commentCnt", commentCnt);
+        model.addAttribute("totalBoard", boardService.boardCnt());
         return "boardpages/boardpagingList";
     }
+
     @GetMapping("/board")
     public String findById(@RequestParam("id") Long id,
                            @RequestParam(value = "page", required = false, defaultValue = "0") int page,

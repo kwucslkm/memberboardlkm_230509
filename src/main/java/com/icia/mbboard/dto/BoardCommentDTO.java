@@ -7,14 +7,15 @@ import lombok.ToString;
 @ToString
 @Setter
 @Getter
-public class boardCommentDTO {
-    private static int id;
+public class BoardCommentDTO {
+    public static int id;
     private Long boardId;
     private Long boardCommentCount;
 
-    public boardCommentDTO() {
+    public BoardCommentDTO() {
         id = id + 1;
     }
+
 
 
 }

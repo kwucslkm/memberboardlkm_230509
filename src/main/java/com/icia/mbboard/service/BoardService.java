@@ -133,6 +133,10 @@ public class BoardService {
         return boardDTOList;
     }
 
+    public int boardCnt() {
+        return boardRepository.boardCnt();
+    }
+
 
     //    public List<BoardDTO> searchList(int page, String type, String q) {
 //        Map<String, Object> pagingParams = pagingListmap(page);

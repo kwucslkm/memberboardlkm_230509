@@ -90,7 +90,8 @@
                             <td>${comment.id}</td>
                             <td>${comment.commentWriter}</td>
                             <td>${comment.commentContents}</td>
-                            <td>${comment.commentCreatedDate}</td>
+                            <td><fmt:formatDate value="${comment.commentCreatedDate}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate></td>
+
                             <c:if test="${comment.memberId == loginMemberId}">
                                 <td>
                                     <button id="commentDelBtn" class="commentDelbtn"
@@ -123,11 +124,6 @@
         const commentContents = document.getElementById("comment-contents").value;
         <%--const boardId = ${boardDetail.id};--%>
         const result = document.getElementById("comment-list");
-        <%--const memberemail = ${member.memberEmail};--%>
-        // const commentdel = document.getElementById("commentDelBtn");
-        // console.log(boardId);
-        // console.log(commentWriteName);
-        // console.log(commentContents);
 
         $.ajax({
             type: "post",
