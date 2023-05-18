@@ -51,7 +51,6 @@
                 <th>작성시간</th>
                 <th>조회수</th>
                 <th>첨부파일</th>
-
             </tr>
             <c:forEach items="${pagingList}" var="board">
                 <tr>
