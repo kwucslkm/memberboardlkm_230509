@@ -31,9 +31,9 @@ public class CommentController {
     }
     @PostMapping("/commentDel")
     public ResponseEntity<List<CommentDTO>> commentDelete(@ModelAttribute CommentDTO commentDTO){
-        System.out.println("삭제할 댓글 id"+commentDTO.getId());
+//        System.out.println("삭제할 댓글 id"+commentDTO.getId());
         commentService.commentDelete(commentDTO.getId());
-        System.out.println("다시찾아올 보드id"+commentDTO.getBoardId());
+//        System.out.println("다시찾아올 보드id"+commentDTO.getBoardId());
         List<CommentDTO> commentDTOList = commentService.commentFindAll(commentDTO.getBoardId());
 //        System.out.println("commentDTOList = " + commentDTOList);
         return new ResponseEntity<>(commentDTOList, HttpStatus.OK);

@@ -44,7 +44,7 @@ public class BoardController {
     }
 
     @PostMapping("/boardSave")
-    public String boardSaveFoem(@ModelAttribute BoardDTO boardDTO, HttpSession session) throws IOException {
+    public String boardSaveForm(@ModelAttribute BoardDTO boardDTO, HttpSession session) throws IOException {
         String loginEmailchk = (String) session.getAttribute("loginEmail");
         MemberDTO memberDTO = memberService.findByMemberEmail(loginEmailchk);
         boardDTO.setMemberId(memberDTO.getId());
@@ -144,11 +144,10 @@ public class BoardController {
     @GetMapping("/boardFindByEmail")
     public String boardFindByEmail(@RequestParam("loginEmail") String loginEmail, Model model) {
         MemberDTO memberDTO = memberService.findByMemberEmail(loginEmail);
-        System.out.println("memberDTO = " + memberDTO);
+//        System.out.println("memberDTO = " + memberDTO);
         Long memberId = memberDTO.getId();
-        System.out.println("memberId = " + memberId);
+//        System.out.println("memberId = " + memberId);
         List<BoardDTO> boardDTOList = boardService.findByBoardId(memberId);
-
         model.addAttribute("findbyboardId", boardDTOList);
         return "memberpages/memberWriteBoard";
     }

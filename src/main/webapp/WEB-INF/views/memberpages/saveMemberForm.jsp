@@ -57,9 +57,7 @@
         }else{
             phoneChkResult.innerText = "좋아요";
             phoneChkResult.style.color="green";
-
         }
-
     }
     const emailchk = () => {
         const email = document.getElementById("member-email").value;
@@ -107,7 +105,6 @@
     }
     // const memberSaveResult = () => {
     //     alert("회원가입 성공")
-    //
     // }
 </script>
 </html>

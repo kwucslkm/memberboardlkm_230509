@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
@@ -30,6 +31,7 @@ public class MbMemberController {
         System.out.println("회원가입성공");
         return "memberpages/memberlogin";
     }
+
     @PostMapping("/email-chk")
     public ResponseEntity emailChk(@RequestParam String memberEmail) {
 //        System.out.println("회원가입에서ajax로 보냇어 = " + memberEmail);`
@@ -43,10 +45,12 @@ public class MbMemberController {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
     }
+
     @GetMapping("/memberLogin")
     public String loginForm() {
         return "memberpages/memberlogin";
     }
+
     @PostMapping("/memberLogin")
     public String login(@ModelAttribute MemberDTO memberDTO, HttpSession session) {
         boolean loginResult = memberService.memberLogin(memberDTO);
@@ -67,8 +71,6 @@ public class MbMemberController {
         model.addAttribute("memberList", memberDTOList);
         return "memberpages/memberListAll";
     }
-
-
 
 
     @GetMapping("/logout")
@@ -108,35 +110,39 @@ public class MbMemberController {
         return "memberpages/memberDetail";
 
     }
+
     @GetMapping("/memberDelete")
-    public String memberDelete(@RequestParam("id") Long memberId){
+    public String memberDelete(@RequestParam("id") Long memberId) {
         System.out.println("CTR시작memberId = " + memberId);
         memberService.memberDelete(memberId);
 
         return "redirect:/memberList";
     }
+
     @GetMapping("/memberSelfOut")
-    public String memberSelfOut(@RequestParam("id") Long memberId, HttpSession session){
+    public String memberSelfOut(@RequestParam("id") Long memberId, HttpSession session) {
         System.out.println("탈퇴 id = " + memberId);
         session.invalidate();
         memberService.memberDelete(memberId);
 
-        return "redirect:/memberList";
+        return "index";
     }
+
     @GetMapping("/memberUpdate")
-    public String memberUPdate(@RequestParam("id") Long id, Model model){
+    public String memberUPdate(@RequestParam("id") Long id, Model model) {
         MemberDTO memberDTO = memberService.findMemberById(id);
-        model.addAttribute("member",memberDTO);
+        model.addAttribute("member", memberDTO);
         return "memberpages/memberUpdateForm";
     }
+
     @PostMapping("/memberUpdate")
-    public String memberUpdateForm(@ModelAttribute MemberDTO memberDTO, HttpSession session){
+    public String memberUpdateForm(@ModelAttribute MemberDTO memberDTO, HttpSession session) {
 //        System.out.println("업데이트폼에서넘어온memberDTO = " + memberDTO);
         int result = memberService.memberUpdate(memberDTO);
-        if (result==1) {
+        if (result == 1) {
             session.invalidate();
             return "redirect:/memberLogin";
-        }else {
+        } else {
             System.out.println("수정 실패");
             return "redirect:/memberPage";
         }
